@@ -14,17 +14,6 @@ ul li {
   position: relative;
 }
 
-ul li a:hover:after {
-  background-color: #7f54b3;
-  content: "";
-  border-radius: 3px;
-  height: 3px;
-  right: 3px;
-  left: 3px;
-  position: absolute;
-  bottom: 0;
-}
-
 button {
   background: transparent;
   display: block;
@@ -71,6 +60,17 @@ main {
   flex-direction: row;
 }
 
+.nav-list-horizontal a:hover:after {
+  background-color: #7f54b3;
+  content: "";
+  border-radius: 3px;
+  height: 3px;
+  right: 3px;
+  left: 3px;
+  position: absolute;
+  bottom: 0;
+}
+
 .nav-list-horizontal li a {
   display: block;
   padding: 24px 28px;
@@ -114,6 +114,13 @@ main {
   border-radius: 8px;
 }
 
+.btn-secondary {
+  border: 2px solid #674399;
+  background: #674399;
+  color: #fff;
+  border-radius: 8px;
+}
+
 .login-button {
   padding: 10px 8px;
   margin: 0 16px;
@@ -134,6 +141,75 @@ main {
 
 .left-nav-mobile {
   margin-left: auto;
+}
+
+/* vertical nav */
+
+.nav-vertical-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 392px;
+  height: 100dvh;
+  background: #fff;
+}
+
+.nav-vertical-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.nav-vertical-content .nvc-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+
+  background: #f6f7f7;
+}
+
+.close-button {
+  height: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-vertical-content .nvc-body {
+  flex: 1;
+  padding: 24px 0;
+  overflow-y: auto;
+}
+
+.nav-vertical-content .nvc-body li {
+  padding: 16px 24px;
+  line-height: 150%;
+  cursor: pointer;
+}
+
+.nav-vertical-content .nvc-body li:hover {
+  background-color: #f6f7f7;
+}
+
+.nav-vertical-content .nvc-body ul:not(:first-of-type) {
+  margin-top: 24px;
+}
+
+.nav-vertical-content .nvc-footer {
+  border-top: 1px solid #dcdcde;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-vertical-content .nvc-footer button {
+  padding: 10px 24px;
+  width: 100%;
 }
 
 /* responsive */
