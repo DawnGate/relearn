@@ -16,6 +16,7 @@ With:
 
 - [ ] https://github.com/vasanthk/how-web-works
 - [ ] https://github.com/dexteryy/spellbook-of-modern-webdev
+- [ ] https://github.com/apptension/developer-handbook
 - [ ] https://github.com/donnemartin/system-design-primer
 
 ## List of resource practicing:

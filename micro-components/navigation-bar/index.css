@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: initial;
+}
+
+ul li {
+  list-style-type: none;
+  position: relative;
+}
+
+ul li a:hover:after {
+  background-color: #7f54b3;
+  content: "";
+  border-radius: 3px;
+  height: 3px;
+  right: 3px;
+  left: 3px;
+  position: absolute;
+  bottom: 0;
+}
+
+button {
+  background: transparent;
+  display: block;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+/* local style  */
+
+body {
+  background: #e6e6e6;
+  margin: 0 auto;
+  max-width: 1500px;
+}
+
+main {
+  background: #fff;
+}
+
+.content {
+  height: 1000px;
+}
+
+.navigation-bar {
+  margin: 0 64px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  min-height: 80px;
+}
+
+.logo-container .logo-image {
+  width: 70px;
+  height: 45px;
+  border: 1px solid;
+}
+
+.nav-list-horizontal {
+  display: none;
+  flex-direction: row;
+}
+
+.nav-list-horizontal li a {
+  display: block;
+  padding: 24px 28px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+.left-nav {
+  margin-left: auto;
+
+  display: none;
+  align-items: center;
+}
+
+.search-button {
+  transition: all 0.2s ease-in-out;
+  width: 32px;
+  height: 32px;
+}
+
+.btn-icon:hover {
+  background-color: #f2edff;
+  box-shadow: 0 0 0 5px #f2edff;
+  border-radius: 100%;
+}
+
+.btn {
+  color: #533582;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn:hover {
+  color: #966ccf;
+}
+
+.btn-primary {
+  border: 2px solid #7f54b3;
+  border-radius: 8px;
+}
+
+.login-button {
+  padding: 10px 8px;
+  margin: 0 16px;
+}
+
+.get-started-button {
+  padding: 10px 24px;
+}
+
+.burger-button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.left-nav-mobile {
+  margin-left: auto;
+}
+
+/* responsive */
+
+@media screen and (min-width: 1116px) {
+  .nav-list-horizontal {
+    display: flex;
+  }
+
+  .left-nav-mobile {
+    display: none;
+  }
+
+  .left-nav {
+    display: flex;
+  }
+}
