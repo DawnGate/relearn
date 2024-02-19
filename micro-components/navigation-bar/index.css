@@ -31,6 +31,10 @@ body {
   max-width: 1500px;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 main {
   background: #fff;
 }
@@ -150,9 +154,15 @@ main {
   top: 0;
   bottom: 0;
   right: 0;
+  z-index: 20;
+
   width: 392px;
   height: 100dvh;
   background: #fff;
+
+  visibility: hidden;
+  right: -100%;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav-vertical-content {
@@ -210,6 +220,30 @@ main {
 .nav-vertical-content .nvc-footer button {
   padding: 10px 24px;
   width: 100%;
+}
+
+.nav-vertical-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav-vertical.open .nav-vertical-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-vertical.open .nav-vertical-panel {
+  visibility: visible;
+  right: 0;
 }
 
 /* responsive */

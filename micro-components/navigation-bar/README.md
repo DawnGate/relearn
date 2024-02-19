@@ -18,4 +18,7 @@ We will create a simple navigation bar with html, css, js from the example in in
   ![Version 0.3](./demo/version_0.3.png "Version 0.3 demo")
   _(image) Version 0.3_
 - Version 0.4: Add action and overlay for vertical navigation
-  image demo
+  ![Version 0.4](./demo/version_0.4_1.png "Version 0.4 demo")
+  _(image) Version 0.4 horizontal_
+  ![Version 0.4](./demo/version_0.4_2.png "Version 0.4 demo")
+  _(image) Version 0.4 vertical_
