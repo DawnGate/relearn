@@ -57,3 +57,51 @@ HTTPD (HTTP Daemon) server is the one handling the requests/responses on the ser
 - The server will verify request method can accept, and the client is allowed to use this method (by IP, authentication, ..)
 - The request can be modify by some pre config on server ( mod_rewrite , URL rewrite) => rewrite the request
 - The server will pull the content or pass the request to the request handler (program, other server or process) and streams the output to the client
+
+7. Server Response
+
+```
+HTTP/1.1 200 OK
+Cache-Control: private, no-store, no-cache, must-revalidate, post-check=0,
+    pre-check=0
+Expires: Sat, 01 Jan 2000 00:00:00 GMT
+P3P: CP="DSP LAW"
+Pragma: no-cache
+Content-Encoding: gzip
+Content-Type: text/html; charset=utf-8
+X-Cnection: close
+Transfer-Encoding: chunked
+Date: Fri, 12 Feb 2010 09:05:55 GMT
+
+2b3
+��������T�n�@����[...]
+```
+
+This is response from the server, something I can explain:
+
+- Cache control, inform about the cache for this file, expires for when this data source expire
+- Content-Encoding, Content-Type
+
+8. Behind the scenes of the Browser
+   Server supplies the resources (HTML, CSS, JS, images, etc...) to the browser and it will go to 2 process:
+
+- Parsing -> HTML, CSS, JS
+- Rendering -> Construct DOM Tree -> Render Tree -> layout of Render Tree -> Painting the render tree
+
+9. The browser's high level structure
+   - User Interface: Includes the address bar, back/forward button, bookmarking menu, etc. Every part of the browser display except the window where you see the requested page.
+   - Browser Engine: Marshals actions between the UI and rendering engine
+   - Rendering Engine: Responsible for displaying requested content. For e.g, the rendering engine parses HTML and Css, and displays the parsed content on the screen.
+   - Networking: For network calls such as HTTP request, using different implementations for different platforms
+   - UI Backend: Used for **drawing basic widgets like combo boxes and windows**. This backend exposes a generic interface that is not platform specific. Underneath it uses operating system user methods.
+   - Javascript Engine: Interpreter used to parse and execute Javascript code
+   - Data Storage: This is a persistence layer. The browser may need to save data locally, such as cookies. Browsers also support storage mechanisms such as **localStorage, IndexedDB and FileSystem**
+
+![View File](https://raw.githubusercontent.com/vasanthk/how-web-works/master/img/layers.png)
+
+So how from a request to rendering a site? What is the browser do?
+
+- Conversion: Teh browser reads the raw bytes of the HTML off the disk or network and translates them to individual character based on specified encoding of the file (UTF-8)
+- Tokenizing: the browser coverts strings of characters into distinct tokens specified by the W3C HTML5 standard. Each token has a special meaning and set of rules.
+- Lexing: The emitted tokens are converted into "objects" which define their properties and rules
+- DOM construction: FInally, because the HTML markup defines relationships between different tags -> the created objects are linked to a tree data structure that also captures the parent-child relationships defined in the original markup: HTML object is a parent of the body object, the body is a parent of the paragraph object, and so on.
