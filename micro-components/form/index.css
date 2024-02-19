@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: initial;
+}
+
+ul li {
+  list-style-type: none;
+  position: relative;
+}
+
+/* local style */
+
+.container {
+  background-color: rgb(241, 242, 243);
+  width: 100%;
+}
+
+.content {
+  max-width: 1264px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 24px;
+
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-logo {
+  margin-bottom: 24px;
+  text-align: center;
+}
