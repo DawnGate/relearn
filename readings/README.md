@@ -14,7 +14,7 @@ With:
 
 ## List of resource reading:
 
-- [ ] https://github.com/vasanthk/how-web-works
+- [!] https://github.com/vasanthk/how-web-works
 - [ ] https://github.com/dexteryy/spellbook-of-modern-webdev
 - [ ] https://github.com/apptension/developer-handbook
 - [ ] https://github.com/donnemartin/system-design-primer
@@ -22,3 +22,7 @@ With:
 ## List of resource practicing:
 
 - [ ] https://github.com/wesbos/JavaScript30
+
+## Other things:
+
+- [ ] https://github.com/kentcdodds/react-performance
