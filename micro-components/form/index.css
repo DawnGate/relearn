@@ -14,7 +14,36 @@ ul li {
   position: relative;
 }
 
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+input {
+  border: none;
+  outline: none;
+  display: block;
+}
+
 /* local style */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
+    "Segoe UI", "Liberation Sans", sans-serif;
+}
+
+.link {
+  font-size: 12px;
+  color: rgb(27, 117, 208);
+  font-weight: 400;
+}
+
+.link:hover {
+  color: rgb(21, 92, 162);
+}
 
 .container {
   background-color: rgb(241, 242, 243);
@@ -27,7 +56,7 @@ ul li {
   width: 100%;
   padding: 24px;
 
-  height: 100vh;
+  min-height: 100vh;
 
   display: flex;
   justify-content: center;
@@ -37,4 +66,161 @@ ul li {
 .form-logo {
   margin-bottom: 24px;
   text-align: center;
+}
+
+.form-social {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  border-radius: 6px;
+  margin: 4px 0;
+  padding: 0.8em;
+
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 400;
+
+  width: 100%;
+}
+
+.form-social button svg {
+  margin: -0.3em 0;
+}
+
+.google-button {
+  background: #fff;
+  border: 1px solid rgb(214, 217, 220);
+  color: rgb(59, 64, 69);
+}
+
+.github-button {
+  background: rgb(12, 13, 14);
+  color: #fff;
+  border: 1px solid rgb(214, 217, 220);
+}
+
+.facebook-button {
+  background: rgb(56, 84, 153);
+  color: #fff;
+  border: 1px solid rgb(214, 217, 220);
+}
+
+.github-button path,
+.facebook-button path {
+  fill: currentColor;
+}
+
+.form-content {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 24px 0px,
+    rgba(0, 0, 0, 0.05) 0px 20px 48px 0px, rgba(0, 0, 0, 0.1) 0px 1px 4px 0px;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field {
+  margin: 6px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  margin: 2px 0;
+  padding: 0 2px;
+
+  font-size: 15px;
+  line-height: 19.6px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.form-field .form-input {
+  margin: 2px 0;
+}
+
+.form-field input {
+  border: 1px solid rgb(186, 191, 197);
+  border-radius: 6px;
+
+  padding: 0.6em 0.7em;
+
+  font-size: 13px;
+
+  width: 100%;
+}
+
+.form-field input:focus {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(27, 117, 208);
+  outline: 2px solid transparent;
+}
+
+.password-field label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-field .form-input {
+  position: relative;
+}
+
+.form-input .float-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+}
+
+.iconEyeOffSm {
+  display: block;
+}
+
+.iconEyeSm {
+  display: none;
+}
+
+.login-button {
+  color: #fff;
+  margin: 2px 0;
+  background: rgb(27, 117, 208);
+}
+
+.form-field .line {
+  margin-top: 16px;
+  border-top: 1px solid rgb(214, 217, 220);
+}
+
+.form-actions {
+  max-width: 316px;
+  width: 100%;
+
+  padding: 16px;
+  margin-bottom: 24px;
+
+  text-align: center;
+  color: rgb(12, 13, 14);
+
+  font-size: 13px;
+  line-height: 17px;
+}
+
+.sign-up-talent {
+  margin-top: 12px;
+}
+
+.sign-up-talent svg {
+  color: rgb(27, 117, 208);
+  fill: currentColor;
+  margin-bottom: -2px;
 }
