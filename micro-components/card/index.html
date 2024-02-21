@@ -1,74 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Micro-component XXX</title>
-    <link rel="stylesheet" href="index.css" />
-  </head>
-  <body>
-    <main>
-      <div class="container">
-        <div class="container-title">
-          <a class="header-title" href="/board?tab=movie">
-            <img
-              src="./assets/movie.png"
-              alt="Movie"
-              class="header-title-img"
-            />
-            <p class="header-title-text">Movie list</p>
-          </a>
-          <a class="header-more" href="/board?tab=movie">
-            <p class="header-more-text">More</p>
-            <img
-              src="./assets/icon-right.png"
-              alt="More"
-              class="header-more-img"
-            />
-            <img
-              src="./assets/icon-right-hover.png"
-              alt="More"
-              class="header-more-img-hover"
-            />
-          </a>
-        </div>
-        <div class="card-lists">
-          <div class="card">
-            <div class="card-detail">
-              <div class="card-detail-banner">
-                <div class="card-detail-top-index">
-                  <p>1</p>
-                </div>
-                <img
-                  class="card-banner"
-                  src="./assets/banner.webp"
-                  alt="banner"
-                />
-              </div>
-              <div class="card-detail-information">
-                <p class="title">Hot and spicy</p>
-                <p class="sub-title">
-                  <span>Hot search index: 858338</span>
-                  <span class="sub-title-icon">
-                    <img alt="sub-title-icon" src="./assets/icon-same.png" />
-                  </span>
-                </p>
-                <p class="categories">Mainland China | Drama</p>
-              </div>
-            </div>
-            <div class="card-preview">
+
+<head>
+  <title>Micro-component List of Cards</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <main>
+    <div class="container">
+      <div class="container-title">
+        <a class="header-title" href="/board?tab=movie">
+          <img src="./assets/movie.png" alt="Movie" class="header-title-img" />
+          <p class="header-title-text">Movie list</p>
+        </a>
+        <a class="header-more" href="/board?tab=movie">
+          <p class="header-more-text">More</p>
+          <img src="./assets/icon-right.png" alt="More" class="header-more-img" />
+          <img src="./assets/icon-right-hover.png" alt="More" class="header-more-img-hover" />
+        </a>
+      </div>
+      <div class="card-lists" id="card-lists">
+      </div>
+    </div>
+  </main>
+
+  <template id="card-item">
+    <a class="card-link" href="/">
+      <div class="card">
+        <div class="card-detail">
+          <div class="card-detail-banner">
+            <div class="card-detail-top-index">
               <p class="top-index">1</p>
-              <p class="title">Hot and spicy</p>
-              <p class="view">
-                <span> 566165 </span>
-                <span class="view-icon">
-                  <img alt="view-icon" src="./assets/icon-same.png" />
-                </span>
-              </p>
             </div>
+            <img class="card-banner" src="./assets/banner.webp" alt="banner" />
           </div>
-          <div class="card">Card</div>
+          <div class="card-detail-information">
+            <p class="title">Hot and spicy</p>
+            <p class="sub-title">
+              <span>Hot search index: <span class="search-count">566165</span></span>
+              <span class="sub-title-icon">
+                <img alt="sub-title-icon" src="./assets/icon-same.png" class="search-rank-icon" />
+              </span>
+            </p>
+            <p class="categories">Mainland China | Drama</p>
+          </div>
+        </div>
+        <div class="card-preview">
+          <p class="top-index">1</p>
+          <p class="title">Hot and spicy</p>
+          <p class="view">
+            <span class="search-count">566165</span>
+            <span class="view-icon">
+              <img alt="view-icon" src="./assets/icon-same.png" class="search-rank-icon" />
+            </span>
+          </p>
         </div>
       </div>
-    </main>
-    <script src="index.js"></script>
-  </body>
+    </a>
+  </template>
+  <script src="index.js"></script>
+</body>
+
 </html>

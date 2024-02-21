@@ -26,3 +26,4 @@ With:
 ## Other things:
 
 - [ ] https://github.com/kentcdodds/react-performance
+- [ ] Game with html css https://www.youtube.com/watch?v=QhvzmskRiCk :V
