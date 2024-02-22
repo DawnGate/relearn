@@ -105,3 +105,6 @@ So how from a request to rendering a site? What is the browser do?
 - Tokenizing: the browser coverts strings of characters into distinct tokens specified by the W3C HTML5 standard. Each token has a special meaning and set of rules.
 - Lexing: The emitted tokens are converted into "objects" which define their properties and rules
 - DOM construction: FInally, because the HTML markup defines relationships between different tags -> the created objects are linked to a tree data structure that also captures the parent-child relationships defined in the original markup: HTML object is a parent of the body object, the body is a parent of the paragraph object, and so on.
+
+10. From HTML to render ui
+    HTML => DOM Tree => Render Tree => Layout => Painting
