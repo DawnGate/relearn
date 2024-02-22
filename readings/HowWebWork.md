@@ -108,3 +108,5 @@ So how from a request to rendering a site? What is the browser do?
 
 10. From HTML to render ui
     HTML => DOM Tree => Render Tree => Layout => Painting
+
+    Other thing will include how render, layout, apply css and show to user
