@@ -149,3 +149,23 @@ window.addEventListener("resize", () => {
     addSettingsAction();
   }, 500);
 });
+
+/* Toggle theme - get theme with system color*/
+const themeSettingButton = document.getElementById("theme-setting");
+
+const toggleTheme = () => {
+  if (bodyElem.className.includes("dark")) {
+    bodyElem.classList.remove("dark");
+  } else {
+    bodyElem.classList.add("dark");
+  }
+};
+themeSettingButton.addEventListener("click", toggleTheme);
+
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  // dark mode
+  bodyElem.classList.add("dark");
+}

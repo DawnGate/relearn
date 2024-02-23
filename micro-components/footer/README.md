@@ -25,3 +25,6 @@ _(image) Version 0.3 Mobile view_
 _(image) Version 0.3 Laptop view_
 
 - Version 0.4: Theme color change and auto with system color scheme (change theme button)
+
+![Version 0.4](./demo/version_0.4.png "Version 0.4 demo")
+_(image) Version 0.4_

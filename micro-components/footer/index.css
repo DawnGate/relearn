@@ -113,8 +113,12 @@ textarea::placeholder {
   --color-text-white: #fff;
   --color-text-black: #0b0e11;
 
+  --color-bg1: #ffffff;
+  --color-bg2: #fafafa;
   --color-popup-bg: #fff;
   --color-input-line: #d8dce1;
+  --color-card-bg: #fff;
+  --color-primary-hover: #f0b90b;
 
   --radii-circle: 100em;
   --radii-m: 8px;
@@ -134,6 +138,28 @@ body {
   width: 100vw;
   overflow-x: hidden;
   overflow-y: auto;
+  background: var(--color-bg2);
+}
+
+body.dark {
+  --color-line: #2b3139;
+  --color-text-primary: #eaecef;
+  --color-text-secondary: #b7bdc6;
+  --color-text-brand: #f0b90b;
+  --color-text-disabled: #5e6673;
+  --color-text-third: #848e9c;
+  --color-text-white: #fff;
+  --color-text-black: #0b0e11;
+
+  --color-bg1: #181a20;
+  --color-bg2: #0b0e11;
+  --color-popup-bg: #1e2329;
+  --color-input-line: #474d57;
+  --color-card-bg: #1e2026;
+  --color-primary-hover: #f0b90b;
+
+  --shadow-shadow2: 0px 7px 14px rgba(0, 0, 0, 0.08),
+    0px 3px 6px rgba(0, 0, 0, 0.08), inset 0px 0px 1px rgba(94, 102, 115, 0.9);
 }
 
 @media screen and (min-width: 768px) {
@@ -167,7 +193,7 @@ body::-webkit-scrollbar-thumb {
 
 .footer {
   padding: 48px 16px;
-  background-color: #fff;
+  background-color: var(--color-bg1);
 }
 
 @media screen and (min-width: 768px) {
@@ -238,6 +264,8 @@ body::-webkit-scrollbar-thumb {
   font-size: 16px;
   line-height: 32px;
   font-weight: 500;
+
+  color: var(--color-text-primary);
 }
 
 .footer-community-lists .footer-icon {
@@ -304,7 +332,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .btn-switch {
-  background: var(--color-line);
+  background: var(--color-text-disabled);
   border-radius: var(--radii-circle);
 
   height: 24px;
@@ -312,7 +340,7 @@ body::-webkit-scrollbar-thumb {
 
   padding: 2px;
 
-  transition: background-color 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .btn-switch-icon {
@@ -326,6 +354,8 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
 
   cursor: pointer;
+
+  transition: transform 250ms ease;
 }
 
 .btn-switch-icon svg {
@@ -350,6 +380,8 @@ body::-webkit-scrollbar-thumb {
   font-weight: 500;
   font-size: 16px;
   line-height: 32px;
+
+  color: var(--color-text-primary);
 
   display: flex;
   justify-content: space-between;
@@ -477,7 +509,7 @@ body::-webkit-scrollbar-thumb {
 .lngAndCurrency-drawer {
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--color-card-bg);
 
   padding: 24px;
   padding-top: 0;
@@ -505,6 +537,8 @@ body::-webkit-scrollbar-thumb {
 .lngAndCurrent-drawer-header .bn-svg {
   width: 20px;
   height: 20px;
+
+  color: var(--color-text-primary);
 }
 
 .lngAndCurrency-drawer-content {
@@ -544,9 +578,15 @@ body::-webkit-scrollbar-thumb {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+
+  color: var(--color-text-primary);
 }
 
 .drawer-sub-content .select-search-data .select-option.active {
+  color: var(--color-text-brand);
+}
+
+.drawer-sub-content .select-search-data .select-option:hover {
   color: var(--color-text-brand);
 }
 
@@ -562,6 +602,9 @@ body::-webkit-scrollbar-thumb {
   border-radius: var(--radii-m);
 
   height: 32px;
+  background: transparent;
+
+  caret-color: var(--color-primary-hover);
 }
 
 @media screen and (min-width: 678px) {
@@ -578,8 +621,6 @@ body::-webkit-scrollbar-thumb {
 .bn-bubble {
   transform: translate(0px, 0px);
 
-  background-color: #fff;
-
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -593,6 +634,8 @@ body::-webkit-scrollbar-thumb {
   display: flex;
 }
 .bn-bubble-layer {
+  background-color: var(--color-popup-bg);
+
   margin-bottom: 4px;
   box-shadow: var(--shadow-shadow2);
   border-radius: var(--radii-m);
@@ -621,6 +664,8 @@ body::-webkit-scrollbar-thumb {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
+
+  color: var(--color-text-primary);
 }
 
 .bn-bubble .select-search-data .select-option:nth-child(1) {
@@ -629,4 +674,29 @@ body::-webkit-scrollbar-thumb {
 
 .bn-bubble .select-search-data .select-option.active {
   color: var(--color-text-brand);
+}
+
+.bn-bubble .select-search-data .select-option:hover {
+  color: var(--color-text-brand);
+}
+
+/* Change theme color */
+.switch-icon.icon-light {
+  display: block;
+}
+
+.switch-icon.icon-dark {
+  display: none;
+}
+
+body.dark .switch-icon.icon-light {
+  display: none;
+}
+
+body.dark .switch-icon.icon-dark {
+  display: block;
+}
+
+body.dark .btn-switch-icon {
+  transform: translateX(20px);
 }
