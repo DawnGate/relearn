@@ -13,6 +13,8 @@ We will create a simple footer with html, css, js from the example in internet
   _(image) Version 0.1_
 
 - Version 0.2: Fully responsive
+  ![Version 0.2](./demo/version_0.2.png "Version 0.2 demo")
+  _(image) Version 0.2_
 
 - Version 0.3: Modal and action (for settings tab)
 
