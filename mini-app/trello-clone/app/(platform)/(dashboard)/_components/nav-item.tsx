@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type Organization = {
   id: string;
@@ -38,22 +39,22 @@ export const NavItem = ({
 
   const routes = [
     {
-      icon: <Layout className="h-4 w-4" />,
+      icon: <Layout className="mr-2 h-4 w-4" />,
       href: `/organization/${organization.id}`,
       label: "Board",
     },
     {
-      icon: <Activity className="h-4 w-4" />,
+      icon: <Activity className="mr-2 h-4 w-4" />,
       href: `/organization/${organization.id}/activity`,
       label: "Activity",
     },
     {
-      icon: <Settings className="h-4 w-4" />,
+      icon: <Settings className="mr-2 h-4 w-4" />,
       href: `/organization/${organization.id}/settings`,
       label: "Settings",
     },
     {
-      icon: <CreditCard className="h-4 w-4" />,
+      icon: <CreditCard className="mr-2 h-4 w-4" />,
       href: `/organization/${organization.id}/billing`,
       label: "Billing",
     },
@@ -102,5 +103,14 @@ export const NavItem = ({
         ))}
       </AccordionContent>
     </AccordionItem>
+  );
+};
+
+NavItem.Skeleton = function SkeletonNavItem() {
+  return (
+    <div className="flex items-center gap-x-2">
+      <Skeleton className="h-10 w-10 shrink-0" />
+      <Skeleton className="h-10 w-full" />
+    </div>
   );
 };
