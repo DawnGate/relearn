@@ -11,7 +11,8 @@ a {
   text-decoration: initial;
 }
 
-ul li {
+ul li,
+ol li {
   list-style-type: none;
   position: relative;
 }
@@ -28,8 +29,10 @@ button {
 /* Local customize */
 
 :root {
-  --gray-1: #fcfcfc;
-  --gray-12: #171717;
+  --gray-1: hsl(0, 0%, 99%);
+  --gray-4: hsl(0, 0%, 93%);
+  --gray-10: hsl(0, 0%, 52.3%);
+  --gray-12: hsl(0, 0%, 9%);
   --hover: #282828;
 }
 
@@ -93,4 +96,97 @@ button {
 
 .button.primary:hover {
   background: var(--hover);
+}
+
+/* toast component */
+
+.toast-container {
+  --front-toast-height: 70px;
+  --t-offset: 32px;
+  --t-width: 356px;
+  --t-gap: 14px;
+}
+
+.toast-list {
+  position: fixed;
+
+  bottom: var(--t-offset);
+  right: var(--t-offset);
+}
+
+.toast-item {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  z-index: var(--z-index);
+
+  transform: translateY(var(--offset, 0));
+
+  transition: transform 0.4s, opacity 0.4s, height 0.4s, box-shadow 0.2s;
+
+  animation: 0.4s toast-animation;
+}
+
+.toast-item-content {
+  position: relative;
+
+  padding: 16px;
+
+  border: 1px solid var(--gray-4);
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px #0000001a;
+
+  background: var(--gray-1);
+
+  width: var(--t-width);
+
+  color: var(--gray-12);
+}
+
+@keyframes toast-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-item-content .toast-header {
+  line-height: 1;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.toast-item-content .toast-content {
+  line-height: 1;
+  font-size: 14px;
+}
+
+.toast-item-content .toast-close-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--gray-10);
+  transition: color 0.2;
+
+  display: none;
+}
+
+.toast-item-content .toast-close-btn:hover {
+  color: var(--gray-12);
 }
