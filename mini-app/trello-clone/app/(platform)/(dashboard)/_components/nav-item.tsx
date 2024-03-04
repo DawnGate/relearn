@@ -79,6 +79,7 @@ export const NavItem = ({
               src={organization.imageUrl}
               alt="org icon"
               fill
+              sizes="100%"
               className="rounded-sm object-cover"
             />
           </div>
