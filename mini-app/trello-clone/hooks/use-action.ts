@@ -23,19 +23,19 @@ export const useAction = <TInput, TOutput>(
   const [data, setData] = useState<TOutput>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors<TInput>>({});
+  const [fieldErrors, setFieldErrors] = useState<
+    FieldErrors<TInput> | undefined
+  >({});
 
   const execute = async (data: TInput) => {
     try {
       const returnData = await action(data);
 
+      setFieldErrors(returnData.fieldErrors);
+
       if (returnData.error) {
         setError(returnData.error);
         options?.onError?.(returnData.error);
-      }
-
-      if (returnData.fieldErrors) {
-        setFieldErrors(returnData.fieldErrors);
       }
 
       if (returnData.data) {
