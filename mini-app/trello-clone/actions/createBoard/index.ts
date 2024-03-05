@@ -9,22 +9,43 @@ import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
 const handler = async (validatedData: InputType) => {
-  const { userId } = auth();
+  const { userId, orgId } = auth();
 
-  if (!userId) {
+  if (!userId || !orgId) {
     return {
       error: "Un-authentication",
     };
   }
 
-  const { title } = validatedData;
+  const { title, image } = validatedData;
+
+  const [imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName] =
+    image.split("|");
+
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageLinkHTML ||
+    !imageUserName
+  ) {
+    return {
+      error: "Missing fields. Failed to create board",
+    };
+  }
 
   let board;
 
   try {
     board = await db?.board.create({
       data: {
-        title: title,
+        title,
+        orgId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageLinkHTML,
+        imageUserName,
       },
     });
   } catch (err) {

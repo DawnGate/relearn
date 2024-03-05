@@ -18,6 +18,7 @@ import {
 import { Button } from "../ui/button";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
+import { FormPicker } from "./form-picker";
 
 interface FormPopover {
   children: React.ReactNode;
@@ -34,19 +35,20 @@ export const FormPopover = ({
 }: FormPopover) => {
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Board created");
     },
     onError: (err) => {
-      console.log(err);
       toast.error("Board error");
     },
   });
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
+    const image = formData.get("image") as string;
+
     execute({
       title,
+      image,
     });
   };
 
@@ -71,6 +73,7 @@ export const FormPopover = ({
           </Button>
         </PopoverClose>
         <form action={onSubmit} className="space-y-4">
+          <FormPicker id="image" errors={fieldErrors} />
           <FormInput
             id="title"
             errors={fieldErrors}
