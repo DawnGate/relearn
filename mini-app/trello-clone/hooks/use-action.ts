@@ -21,13 +21,14 @@ export const useAction = <TInput, TOutput>(
   options: Options<TOutput>,
 ) => {
   const [data, setData] = useState<TOutput>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<
     FieldErrors<TInput> | undefined
   >({});
 
   const execute = async (data: TInput) => {
+    setIsLoading(true);
     try {
       const returnData = await action(data);
 
