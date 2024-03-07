@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 import { useAction } from "@/hooks/use-action";
 
-import { createBoard } from "@/actions/createBoard";
+import { createBoard } from "@/actions/create-board";
 
 import { X } from "lucide-react";
 

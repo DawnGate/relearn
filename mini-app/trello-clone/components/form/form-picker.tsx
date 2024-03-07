@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 import { unsplash } from "@/lib/unsplash";
 
-import { imageUnsplash as defaultImages } from "@/constants/image_unsplash";
+import { imageUnsplash as defaultImages } from "@/constants/image-unsplash";
 import { FormError } from "./form-error";
 
 interface FormPickerProps {

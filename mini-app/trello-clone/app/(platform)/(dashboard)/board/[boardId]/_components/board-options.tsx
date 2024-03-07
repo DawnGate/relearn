@@ -11,7 +11,7 @@ import {
   PopoverClose,
 } from "@/components/ui/popover";
 import { useAction } from "@/hooks/use-action";
-import { deleteBoard } from "@/actions/deleteBoard";
+import { deleteBoard } from "@/actions/delete-board";
 
 interface BoardOptionsProps {
   id: string;
