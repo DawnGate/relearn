@@ -22,7 +22,7 @@ export async function generateMetadata({
     };
   }
 
-  const board = await db?.board.findUnique({
+  const board = await db.board.findUnique({
     where: {
       id: params.boardId,
       orgId,
@@ -49,7 +49,7 @@ const BoardIdLayout = async ({
     redirect("/select-org");
   }
 
-  const board = await db?.board.findUnique({
+  const board = await db.board.findUnique({
     where: {
       id: params.boardId,
       orgId,

@@ -26,7 +26,7 @@ const handler = async (validatedData: InputType) => {
   let board;
 
   try {
-    board = await db?.board.delete({
+    board = await db.board.delete({
       where: {
         id,
         orgId,

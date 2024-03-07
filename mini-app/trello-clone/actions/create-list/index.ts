@@ -26,9 +26,10 @@ const handler = async (validatedData: InputType) => {
   let list;
 
   try {
-    const board = await db?.board.findUnique({
+    const board = await db.board.findUnique({
       where: {
         id: boardId,
+        orgId,
       },
     });
 
@@ -38,7 +39,7 @@ const handler = async (validatedData: InputType) => {
       };
     }
 
-    const lastList = await db?.list.findFirst({
+    const lastList = await db.list.findFirst({
       where: {
         boardId: boardId,
       },
@@ -52,7 +53,7 @@ const handler = async (validatedData: InputType) => {
 
     const newOrder = lastList?.order ? lastList.order + 1 : 1;
 
-    list = await db?.list.create({
+    list = await db.list.create({
       data: {
         title,
         boardId,

@@ -8,6 +8,8 @@ import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 import { Plus, X } from "lucide-react";
 
+import { toast } from "sonner";
+
 import { useAction } from "@/hooks/use-action";
 
 import { createList } from "@/actions/create-list";
@@ -17,7 +19,6 @@ import { FormInput } from "@/components/form/form-input";
 import { FormSubmit } from "@/components/form/form-submit";
 
 import { ListWrapper } from "./list-wrapper";
-import { toast } from "sonner";
 
 export const ListForm = () => {
   const params = useParams();
@@ -97,13 +98,14 @@ export const ListForm = () => {
 
   return (
     <ListWrapper>
-      <Button
+      <button
+        type="button"
         onClick={enableEditing}
         className="text-natural-500 flex w-full items-center justify-start rounded-md bg-white/80 p-3 text-sm font-medium hover:bg-white/50"
       >
         <Plus className="mr-2 h-4 w-4" />
         Add a list
-      </Button>
+      </button>
     </ListWrapper>
   );
 };

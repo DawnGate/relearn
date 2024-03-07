@@ -25,7 +25,7 @@ const handler = async (validatedData: InputType) => {
   let board;
 
   try {
-    board = await db?.board.update({
+    board = await db.board.update({
       where: {
         id,
         orgId,

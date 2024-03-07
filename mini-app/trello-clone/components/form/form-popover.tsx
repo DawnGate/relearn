@@ -19,6 +19,7 @@ import { Button } from "../ui/button";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { FormPicker } from "./form-picker";
+import { useRouter } from "next/navigation";
 
 interface FormPopover {
   children: React.ReactNode;
@@ -33,9 +34,12 @@ export const FormPopover = ({
   align = "start",
   sideOffset = 0,
 }: FormPopover) => {
+  const router = useRouter();
+
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      toast.success("Board created");
+      toast.success("Board created!");
+      router.push(`/board/${data.id}`);
     },
     onError: (err) => {
       toast.error("Board error");

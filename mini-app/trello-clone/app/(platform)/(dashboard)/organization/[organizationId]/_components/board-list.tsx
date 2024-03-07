@@ -18,7 +18,7 @@ export const BoardList = async () => {
     return redirect("/select-org");
   }
 
-  const boards = await db?.board.findMany({
+  const boards = await db.board.findMany({
     where: {
       orgId,
     },
@@ -38,8 +38,8 @@ export const BoardList = async () => {
           <Link
             key={board.id}
             href={`/board/${board.id}`}
-            className="group relative aspect-video h-full w-full overflow-hidden rounded-sm bg-sky-700 bg-cover bg-no-repeat p-2"
-            style={{ background: `url(${board.imageThumbUrl})` }}
+            className="group relative aspect-video h-full w-full overflow-hidden rounded-sm bg-sky-700 bg-cover bg-center bg-no-repeat p-2"
+            style={{ backgroundImage: `url(${board.imageThumbUrl})` }}
           >
             <div className="absolute inset-0 bg-black/30 transition group-hover:bg-black/40" />
             <p className="relative font-semibold text-white">{board.title}</p>

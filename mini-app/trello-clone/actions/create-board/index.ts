@@ -37,7 +37,7 @@ const handler = async (validatedData: InputType) => {
   let board;
 
   try {
-    board = await db?.board.create({
+    board = await db.board.create({
       data: {
         title,
         orgId,
