@@ -40,12 +40,6 @@ const handler = async (validatedData: InputType) => {
     };
   }
 
-  if (!board) {
-    return {
-      error: "Problem occur when update",
-    };
-  }
-
   revalidatePath(`/board/${board.id}`);
 
   return {

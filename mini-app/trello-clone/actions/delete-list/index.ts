@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 
 import { auth } from "@clerk/nextjs";
 
-import { UpdateListScheme } from "./scheme";
+import { DeleteListScheme } from "./scheme";
 
 import { InputType } from "./type";
 
@@ -21,12 +21,12 @@ const handler = async (validatedData: InputType) => {
     };
   }
 
-  const { title, boardId, id } = validatedData;
+  const { boardId, id } = validatedData;
 
   let list;
 
   try {
-    list = await db.list.update({
+    list = await db.list.delete({
       where: {
         id,
         boardId,
@@ -34,13 +34,10 @@ const handler = async (validatedData: InputType) => {
           orgId,
         },
       },
-      data: {
-        title,
-      },
     });
   } catch (err) {
     return {
-      error: "Fail to update list",
+      error: "Fail to delete list",
     };
   }
 
@@ -51,4 +48,4 @@ const handler = async (validatedData: InputType) => {
   };
 };
 
-export const updateList = createSafeAction(UpdateListScheme, handler);
+export const deleteList = createSafeAction(DeleteListScheme, handler);

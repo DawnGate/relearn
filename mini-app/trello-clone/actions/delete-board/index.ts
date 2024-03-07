@@ -38,12 +38,6 @@ const handler = async (validatedData: InputType) => {
     };
   }
 
-  if (!board) {
-    return {
-      error: "Problem occur when delete",
-    };
-  }
-
   revalidatePath(`/organization/${orgId}`);
   redirect(`/organization/${orgId}`);
 };

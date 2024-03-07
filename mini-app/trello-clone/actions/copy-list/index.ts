@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 
 import { auth } from "@clerk/nextjs";
 
-import { CreateListScheme } from "./scheme";
+import { CopyListScheme } from "./scheme";
 
 import { InputType } from "./type";
 
@@ -21,27 +21,34 @@ const handler = async (validatedData: InputType) => {
     };
   }
 
-  const { title, boardId } = validatedData;
+  const { boardId, id } = validatedData;
 
   let list;
 
   try {
-    const board = await db.board.findUnique({
+    const listToCopy = await db.list.findUnique({
       where: {
-        id: boardId,
-        orgId,
+        id,
+        boardId,
+        board: {
+          orgId,
+        },
+      },
+      include: {
+        cards: true,
       },
     });
 
-    if (!board) {
-      return {
-        error: "Board not found!",
-      };
+    if (!listToCopy) {
+      throw new Error("Not found list");
     }
 
     const lastList = await db.list.findFirst({
       where: {
-        boardId: boardId,
+        boardId,
+        board: {
+          orgId,
+        },
       },
       orderBy: {
         order: "desc",
@@ -53,16 +60,29 @@ const handler = async (validatedData: InputType) => {
 
     const newOrder = lastList?.order ? lastList.order + 1 : 1;
 
+    console.log(listToCopy, newOrder);
     list = await db.list.create({
+      include: {
+        cards: true,
+      },
       data: {
-        title,
-        boardId,
+        boardId: listToCopy.boardId,
+        title: `${listToCopy.title} - Copy`,
         order: newOrder,
+        cards: {
+          create: listToCopy.cards.map((card) => ({
+            title: card.title,
+            description: card.description,
+            order: card.order,
+          })),
+        },
       },
     });
+    console.log(list);
   } catch (err) {
+    console.log(err);
     return {
-      error: "Fail to create list",
+      error: "Fail to copy list",
     };
   }
 
@@ -73,4 +93,4 @@ const handler = async (validatedData: InputType) => {
   };
 };
 
-export const createList = createSafeAction(CreateListScheme, handler);
+export const copyList = createSafeAction(CopyListScheme, handler);

@@ -12,6 +12,7 @@ import { updateList } from "@/actions/update-list";
 import { useAction } from "@/hooks/use-action";
 
 import { FormInput } from "@/components/form/form-input";
+import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
@@ -26,7 +27,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
 
   const { fieldErrors, execute } = useAction(updateList, {
     onSuccess: (data) => {
-      toast.success("List has updated!");
+      toast.success(`Rename to ${data.title}!`);
       disableEditing();
       setTitle(data.title);
     },
@@ -83,6 +84,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
         <FormInput
           id="title"
           errors={fieldErrors}
+          defaultValue={title}
           ref={inputRef}
           placeholder="Enter list title..."
           className="truncate bg-transparent px-2 text-sm font-medium focus:bg-white"
@@ -105,6 +107,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   return (
     <div className="flex items-center justify-start gap-x-2 px-2 pt-2">
       {content}
+      <ListOptions data={data} />
     </div>
   );
 };

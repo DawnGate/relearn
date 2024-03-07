@@ -54,12 +54,6 @@ const handler = async (validatedData: InputType) => {
     };
   }
 
-  if (!board) {
-    return {
-      error: "Fail to create",
-    };
-  }
-
   revalidatePath(`/board/${board.id}`);
 
   return {
