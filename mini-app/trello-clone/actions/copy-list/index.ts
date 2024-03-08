@@ -60,7 +60,6 @@ const handler = async (validatedData: InputType) => {
 
     const newOrder = lastList?.order ? lastList.order + 1 : 1;
 
-    console.log(listToCopy, newOrder);
     list = await db.list.create({
       include: {
         cards: true,
@@ -78,9 +77,7 @@ const handler = async (validatedData: InputType) => {
         },
       },
     });
-    console.log(list);
   } catch (err) {
-    console.log(err);
     return {
       error: "Fail to copy list",
     };

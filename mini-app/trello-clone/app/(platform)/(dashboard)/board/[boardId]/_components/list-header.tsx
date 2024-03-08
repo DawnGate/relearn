@@ -16,9 +16,10 @@ import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListHeader = ({ data }: ListHeaderProps) => {
+export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(data.title);
 
@@ -107,7 +108,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   return (
     <div className="flex items-center justify-start gap-x-2 px-2 pt-2">
       {content}
-      <ListOptions data={data} />
+      <ListOptions data={data} onAddCard={onAddCard} />
     </div>
   );
 };

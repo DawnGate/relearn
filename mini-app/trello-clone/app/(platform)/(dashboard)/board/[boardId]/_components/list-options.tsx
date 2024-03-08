@@ -25,9 +25,10 @@ import {
 
 interface ListOptionsProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListOptions = ({ data }: ListOptionsProps) => {
+export const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
   const closeBtnRef = useRef<ElementRef<"button">>(null);
 
   const { execute: executeDelete } = useAction(deleteList, {
@@ -92,6 +93,7 @@ export const ListOptions = ({ data }: ListOptionsProps) => {
           </Button>
         </PopoverClose>
         <Button
+          onClick={onAddCard}
           variant="ghost"
           className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
         >
