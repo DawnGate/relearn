@@ -54,7 +54,6 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
-    console.log(destination, source, type);
     if (!destination) {
       return;
     }

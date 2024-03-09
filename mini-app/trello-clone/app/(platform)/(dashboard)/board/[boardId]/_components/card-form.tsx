@@ -56,7 +56,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
     };
 
     const onKeydown = (e: KeyboardEvent) => {
-      if (e.key === "Esc") {
+      if (e.key === "Escape") {
         disableEditing();
       }
     };
