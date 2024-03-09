@@ -1,4 +1,5 @@
 "use server";
+import { redirect } from "next/navigation";
 
 import { revalidatePath } from "next/cache";
 
@@ -6,11 +7,13 @@ import { db } from "@/lib/db";
 
 import { auth } from "@clerk/nextjs";
 
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+
 import { createSafeAction } from "@/lib/create-safe-action";
 
 import { InputType } from "./types";
 import { DeleteBoardScheme } from "./scheme";
-import { redirect } from "next/navigation";
 
 const handler = async (validatedData: InputType) => {
   const { userId, orgId } = auth();
@@ -31,6 +34,13 @@ const handler = async (validatedData: InputType) => {
         id,
         orgId,
       },
+    });
+
+    createAuditLog({
+      entityId: board.id,
+      entityTitle: board.title,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.DELETE,
     });
   } catch (err) {
     return {

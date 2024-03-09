@@ -8,6 +8,9 @@ import { db } from "@/lib/db";
 
 import { auth } from "@clerk/nextjs";
 
+import { createAuditLog } from "@/lib/create-audit-log";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+
 import { CreateListScheme } from "./scheme";
 
 import { InputType } from "./type";
@@ -59,6 +62,13 @@ const handler = async (validatedData: InputType) => {
         boardId,
         order: newOrder,
       },
+    });
+
+    createAuditLog({
+      entityId: list.id,
+      entityTitle: list.title,
+      entityType: ENTITY_TYPE.LIST,
+      action: ACTION.CREATE,
     });
   } catch (err) {
     return {
