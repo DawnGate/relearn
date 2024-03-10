@@ -6,7 +6,7 @@ idea from : https://github.com/AntonioErdeljac/next13-trello
 
 When learning nextjs I confused so much. So, I choose both self learning and learning from other people have mini project to improve my self skill
 
-This is project with idea from antonio who have a youtube chanel about develop
+This is project with idea from antonio who have a youtube chanel about development some clone app
 
 # Tech stacks
 
@@ -38,8 +38,17 @@ This project will using **ACTIONS** from Nextjs to handle almost all action from
 ```
 npm i
 
-# fill all environment key
+#setting all environment variable .env
+
+npx prisma generate
 npx prisma db push
 
+npm run dev
 
 ```
+
+# demos
+
+![Demo view organization](./docs/demo-1.png)
+![Demo view organization](./docs/demo-3.png)
+<img src="./docs/demo-2.png" alt="demo mobile view" width="200px" height="300px">
