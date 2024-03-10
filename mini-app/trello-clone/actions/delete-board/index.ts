@@ -17,7 +17,11 @@ import { DeleteBoardScheme } from "./scheme";
 
 import { decreaseAvailableCount } from "@/lib/org-limit";
 
+import { checkSubscription } from "@/lib/subscription";
+
 const handler = async (validatedData: InputType) => {
+  const isPro = checkSubscription();
+
   const { userId, orgId } = auth();
 
   if (!userId || !orgId) {
@@ -38,7 +42,9 @@ const handler = async (validatedData: InputType) => {
       },
     });
 
-    await decreaseAvailableCount();
+    if (!isPro) {
+      await decreaseAvailableCount();
+    }
 
     createAuditLog({
       entityId: board.id,

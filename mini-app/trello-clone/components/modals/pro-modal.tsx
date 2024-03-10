@@ -1,13 +1,30 @@
-import { useProModal } from "@/hooks/use-pro-modal";
-import { Dialog, DialogContent } from "../ui/dialog";
 import Image from "next/image";
+
+import { toast } from "sonner";
+
+import { useProModal } from "@/hooks/use-pro-modal";
+import { useAction } from "@/hooks/use-action";
+import { stripeRedirect } from "@/actions/stripe-redirect";
+
 import { Button } from "../ui/button";
+import { Dialog, DialogContent } from "../ui/dialog";
 
 export const ProModal = () => {
   const isOpen = useProModal((state) => state.isOpen);
   const onClose = useProModal((state) => state.onClose);
 
-  const isLoading = true;
+  const { execute, isLoading } = useAction(stripeRedirect, {
+    onSuccess: (data) => {
+      window.location.href = data;
+    },
+    onError: (err) => {
+      toast.error(err);
+    },
+  });
+
+  const onClickUpgrade = () => {
+    execute({});
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -39,7 +56,12 @@ export const ProModal = () => {
               <li>And more!</li>
             </ul>
           </div>
-          <Button variant="primary" disabled={isLoading} className="w-full">
+          <Button
+            onClick={onClickUpgrade}
+            variant="primary"
+            disabled={isLoading}
+            className="w-full"
+          >
             Upgrade
           </Button>
         </div>

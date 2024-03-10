@@ -15,13 +15,15 @@ import { BoardScheme } from "./scheme";
 import { InputType } from "./type";
 
 import { hasAvailableCount, incrementAvailableCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subscription";
 
 const handler = async (validatedData: InputType) => {
   const { userId, orgId } = auth();
 
   const canCreate = await hasAvailableCount();
+  const isPro = await checkSubscription();
 
-  if (!canCreate) {
+  if (!canCreate && !isPro) {
     return {
       error:
         "You have reached your limit of free boards. Please upgrade to create more.",
@@ -66,7 +68,9 @@ const handler = async (validatedData: InputType) => {
       },
     });
 
-    incrementAvailableCount();
+    if (!isPro) {
+      incrementAvailableCount();
+    }
 
     createAuditLog({
       entityId: board.id,

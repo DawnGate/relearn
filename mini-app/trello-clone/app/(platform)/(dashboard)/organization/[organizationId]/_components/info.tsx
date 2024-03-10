@@ -6,7 +6,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { CreditCard } from "lucide-react";
 
-export const Info = () => {
+interface InfoProps {
+  isPro: boolean;
+}
+
+export const Info = ({ isPro }: InfoProps) => {
   const { isLoaded, organization } = useOrganization();
 
   if (!isLoaded) {
@@ -28,7 +32,7 @@ export const Info = () => {
         <div className="text-xl font-semibold">{organization?.name}</div>
         <div className="flex items-center text-xs text-muted-foreground">
           <CreditCard className="mr-1 h-4 w-4" />
-          Free
+          {isPro ? "Pro" : "Free"}
         </div>
       </div>
     </div>
