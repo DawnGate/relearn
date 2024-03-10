@@ -35,6 +35,14 @@ This project will using **ACTIONS** from Nextjs to handle almost all action from
 
 # instructions
 
+you need to checkout how setup and get key from:
+
+- mongodb
+- prisma
+- clerk
+- unsplash
+- stripe
+
 ```
 npm i
 
@@ -49,6 +57,10 @@ npm run dev
 
 # demos
 
-![Demo view organization](./docs/demo-1.png)
-![Demo view organization](./docs/demo-3.png)
-<img src="./docs/demo-2.png" alt="demo mobile view" width="200px" height="300px">
+| ![Demo view organization](./docs/demo-1.png)
+|-
+
+| ![Demo view organization](./docs/demo-3.png)
+|-
+
+<kbd><img src="./docs/demo-2.png" alt="demo mobile view" width="200px" height="300px"></kbd>
