@@ -14,8 +14,19 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { BoardScheme } from "./scheme";
 import { InputType } from "./type";
 
+import { hasAvailableCount, incrementAvailableCount } from "@/lib/org-limit";
+
 const handler = async (validatedData: InputType) => {
   const { userId, orgId } = auth();
+
+  const canCreate = await hasAvailableCount();
+
+  if (!canCreate) {
+    return {
+      error:
+        "You have reached your limit of free boards. Please upgrade to create more.",
+    };
+  }
 
   if (!userId || !orgId) {
     return {
@@ -54,6 +65,8 @@ const handler = async (validatedData: InputType) => {
         imageUserName,
       },
     });
+
+    incrementAvailableCount();
 
     createAuditLog({
       entityId: board.id,

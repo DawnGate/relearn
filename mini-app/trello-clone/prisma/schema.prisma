@@ -29,7 +29,7 @@ model Board {
 
   list List[]
 
-  createAt DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
@@ -44,8 +44,8 @@ model List {
 
   cards Card[]
 
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([boardId])
 }
@@ -60,8 +60,8 @@ model Card {
   listId String
   list List @relation(fields: [listId], references: [id], onDelete: Cascade)
 
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([listId])
 }
@@ -91,6 +91,15 @@ model AuditLog {
   userName String
   userImage String?
 
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrgLimit {
+  id String @id @default(uuid()) @map("_id")
+  orgId String @unique
+  count Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -15,6 +15,8 @@ import { createSafeAction } from "@/lib/create-safe-action";
 import { InputType } from "./types";
 import { DeleteBoardScheme } from "./scheme";
 
+import { decreaseAvailableCount } from "@/lib/org-limit";
+
 const handler = async (validatedData: InputType) => {
   const { userId, orgId } = auth();
 
@@ -35,6 +37,8 @@ const handler = async (validatedData: InputType) => {
         orgId,
       },
     });
+
+    await decreaseAvailableCount();
 
     createAuditLog({
       entityId: board.id,

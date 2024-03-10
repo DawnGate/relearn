@@ -16,10 +16,10 @@ import { AlignLeft } from "lucide-react";
 
 import { CardWithList } from "@/types/prisma-types";
 
-import { Skeleton } from "../ui/skeleton";
-import { FormTextarea } from "../form/form-textarea";
-import { Button } from "../ui/button";
-import { FormSubmit } from "../form/form-submit";
+import { Skeleton } from "../../ui/skeleton";
+import { FormTextarea } from "../../form/form-textarea";
+import { Button } from "../../ui/button";
+import { FormSubmit } from "../../form/form-submit";
 
 interface CardDescriptionProps {
   data: CardWithList;
@@ -39,6 +39,10 @@ export const CardDescription = ({ data }: CardDescriptionProps) => {
       toast.success(`Updated "${data.title}" success!`);
       queryClient.invalidateQueries({
         queryKey: ["card", data.id],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["card-audit-log", data.id],
       });
       disableEditing();
     },

@@ -12,8 +12,8 @@ import { CardWithList } from "@/types/prisma-types";
 
 import { Layout } from "lucide-react";
 
-import { Skeleton } from "../ui/skeleton";
-import { FormInput } from "../form/form-input";
+import { Skeleton } from "../../ui/skeleton";
+import { FormInput } from "../../form/form-input";
 
 interface CardHeaderProps {
   data: CardWithList;
@@ -33,6 +33,10 @@ export const CardHeader = ({ data }: CardHeaderProps) => {
       setTitle(data.title);
       queryClient.invalidateQueries({
         queryKey: ["card", data.id],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["card-audit-log", data.id],
       });
     },
     onError: (err) => {

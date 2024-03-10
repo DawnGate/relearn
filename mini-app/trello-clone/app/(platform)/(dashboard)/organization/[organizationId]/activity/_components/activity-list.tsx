@@ -17,7 +17,7 @@ export const ActivityList = async () => {
       orgId,
     },
     orderBy: {
-      createAt: "desc",
+      createdAt: "desc",
     },
   });
 

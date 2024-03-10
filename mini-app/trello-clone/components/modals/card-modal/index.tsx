@@ -13,7 +13,7 @@ import { CardAction } from "./actions";
 import { CardDescription } from "./description";
 import { CardActivity } from "./activity";
 
-import { Dialog, DialogContent } from "../ui/dialog";
+import { Dialog, DialogContent } from "../../ui/dialog";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);

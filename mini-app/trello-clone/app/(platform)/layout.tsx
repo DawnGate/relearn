@@ -1,8 +1,8 @@
 import { Toaster } from "sonner";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { ModalProvider } from "@/providers/modal-provider";
-import { QueryProvider } from "@/providers/query-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

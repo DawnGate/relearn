@@ -32,3 +32,14 @@ This is project with idea from antonio who have a youtube chanel about develop
 # Notes
 
 This project will using **ACTIONS** from Nextjs to handle almost all action from client side.
+
+# instructions
+
+```
+npm i
+
+# fill all environment key
+npx prisma db push
+
+
+```

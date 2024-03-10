@@ -14,8 +14,8 @@ import { copyCard } from "@/actions/copy-card";
 
 import { Copy, Trash } from "lucide-react";
 
-import { Button } from "../ui/button";
-import { Skeleton } from "../ui/skeleton";
+import { Button } from "../../ui/button";
+import { Skeleton } from "../../ui/skeleton";
 
 interface CardActionsProps {
   data: CardWithList;
