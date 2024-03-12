@@ -1,20 +1,25 @@
 require("dotenv").config();
-
 const express = require("express");
+const bodyParser = require("body-parser");
+
 const { dbConnect } = require("./config/dbConnect");
 
-dbConnect();
+const authRouter = require("./routes/authRoute");
+
+const { notFound, errorHandler } = require("./middlewares/errorHandler");
+
+const port = process.env.PORT || 3001;
+
 const app = express();
 
-const port = process.env.PORT;
+dbConnect();
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+app.use(bodyParser.json());
 
-app.get("/hello", (req, res) => {
-  res.send("Hello world");
-});
+app.use("/api/user", authRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`app listen on port ${port}`);

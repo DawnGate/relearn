@@ -6,7 +6,7 @@ const dbConnect = () => {
     console.log("Connect db successful");
     return db;
   } catch (err) {
-    console.error("Db connect fail", err);
+    console.error("Db connect fail");
   }
 };
 
