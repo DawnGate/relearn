@@ -33,14 +33,16 @@ var userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    isBlocked: {
+      type: Boolean,
+      default: "false",
+    },
   },
   {
     timestamps: true,
     toObject: {
       transform: function (doc, ret, options) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete password;
+        delete ret.password;
         return ret;
       },
     },
@@ -52,13 +54,13 @@ userSchema.pre("save", async function (next) {
     next();
   }
 
-  const salt = bcrypt.genSaltSync(process.env.BCRYPT_SALT);
+  const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT) || 10);
   const hash = await bcrypt.hash(this.password, salt);
   this.password = hash;
   next();
 });
 
-userSchema.method.isPasswordMatched = async function (enteredPassword) {
+userSchema.methods.isPasswordMatched = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
