@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
 
 const { dbConnect } = require("./config/dbConnect");
 
@@ -14,7 +13,8 @@ const app = express();
 
 dbConnect();
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", authRouter);
 
