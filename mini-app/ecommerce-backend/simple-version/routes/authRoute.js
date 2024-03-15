@@ -13,6 +13,8 @@ const {
   refreshNewToken,
   logout,
   updatePassword,
+  forgotPasswordToken,
+  resetPassword,
 } = require("../controller/userCtrl");
 
 const {
@@ -26,6 +28,9 @@ router.post("/login", loginUser);
 router.get("/logout", authMiddleware, logout);
 
 router.put("/password", authMiddleware, updatePassword);
+
+router.post("/forgot-password-token", forgotPasswordToken);
+router.post("/reset-password/:token", resetPassword);
 
 router.get("/refresh", authMiddleware, refreshNewToken);
 
