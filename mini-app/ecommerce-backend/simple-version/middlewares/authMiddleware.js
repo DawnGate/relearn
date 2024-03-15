@@ -22,6 +22,18 @@ const authMiddleware = asyncHandler(async function (req, res, next) {
   }
 });
 
+const isYouMiddleware = asyncHandler(async function (req, res, next) {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+
+  if (id !== userId) {
+    res.status(403);
+    throw new Error("Forbidden");
+  }
+
+  next();
+});
+
 const isAdminMiddleware = asyncHandler(async function (req, res, next) {
   try {
     const { role } = req.user;
@@ -38,4 +50,5 @@ const isAdminMiddleware = asyncHandler(async function (req, res, next) {
 module.exports = {
   authMiddleware,
   isAdminMiddleware,
+  isYouMiddleware,
 };

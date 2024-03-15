@@ -1,7 +1,10 @@
+const jwt = require("jsonwebtoken");
+
 const { generateRefreshToken, generateToken } = require("../config/jwtToken");
-const User = require("../model/userModel");
 
 const asyncHandler = require("express-async-handler");
+const User = require("../model/userModel");
+
 const { validateMongDbbId } = require("../utils/validateMongodbId");
 
 const createUser = asyncHandler(async (req, res) => {
@@ -73,6 +76,75 @@ const loginUser = asyncHandler(async function (req, res) {
     });
   } catch (err) {
     throw new Error("Something wrong");
+  }
+});
+
+const refreshNewToken = asyncHandler(async function (req, res) {
+  try {
+    const cookies = req.cookies;
+    const { refreshToken } = cookies;
+    const { id, refreshToken: userRefreshToken } = req.user;
+
+    if (refreshToken !== userRefreshToken) {
+      throw new Error("Refresh token different");
+    }
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
+      if (err || decoded.id !== id) {
+        throw new Error("Refresh token error");
+      }
+
+      const newAccessToken = generateToken(id);
+
+      res.json({
+        token: newAccessToken,
+      });
+    });
+  } catch (err) {
+    throw new Error("Can't generate new token");
+  }
+});
+
+const logout = asyncHandler(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const { refreshToken: userRefreshToken, id } = req.user;
+  if (!refreshToken) {
+    throw new Error("No refresh token in cookies");
+  }
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: true,
+  });
+
+  if (refreshToken !== refreshToken) {
+    res.status(403);
+    throw new Error("Forbidden");
+  }
+
+  const updateUser = await User.findByIdAndUpdate(id, {
+    refreshToken: null,
+  });
+
+  res.sendStatus(200);
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const { password } = req.body;
+
+  validateMongDbbId(id);
+
+  if (!password) {
+    throw new Error("Password is required");
+  }
+
+  const user = await User.findById(id);
+  try {
+    user.password = password;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -192,10 +264,13 @@ const unBlockUser = asyncHandler(async function (req, res) {
 module.exports = {
   createUser,
   loginUser,
+  refreshNewToken,
   getAllUser,
   getAUser,
   deleteAUser,
   updateUser,
   blockUser,
   unBlockUser,
+  logout,
+  updatePassword,
 };
