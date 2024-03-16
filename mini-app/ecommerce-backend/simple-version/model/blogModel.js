@@ -35,6 +35,7 @@ const blogSchema = new mongoose.Schema(
       type: String,
       default: "Admin",
     },
+    images: [],
   },
   {
     timestamps: true,

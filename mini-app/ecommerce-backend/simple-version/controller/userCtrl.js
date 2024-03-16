@@ -7,6 +7,9 @@ const asyncHandler = require("express-async-handler");
 const { generateRefreshToken, generateToken } = require("../config/jwtToken");
 
 const User = require("../model/userModel");
+const Cart = require("../model/cartModel");
+const Order = require("../model/orderModel");
+const Product = require("../model/productModel");
 
 const { validateMongDbbId } = require("../utils/validateMongodbId");
 const { sendEmail } = require("./emailCtrl");
@@ -317,6 +320,112 @@ const unBlockUser = asyncHandler(async function (req, res) {
   }
 });
 
+const getWishList = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  validateMongDbbId(id);
+
+  try {
+    const foundUser = await User.findById(id).populate("wishlist");
+    res.json(foundUser);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const saveAddress = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const { address } = req.body;
+
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      id,
+      {
+        address,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updateUser);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const userCart = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const { cart } = req.body;
+
+  validateMongDbbId(id);
+
+  try {
+    const alreadyExistCart = await Cart.findOne({
+      orderBy: id,
+    });
+
+    if (alreadyExistCart) {
+      await Cart.findByIdAndDelete(alreadyExistCart._id);
+    }
+
+    let products = [];
+    for (let i = 0; i < cart.length; i++) {
+      const product = await Product.findById(cart[i].prodId)
+        .select("price")
+        .exec();
+      let object = {
+        id: cart[i].prodId,
+        count: cart[i].count,
+        color: cart[i].color,
+        price: product.price,
+      };
+      products.push(object);
+    }
+
+    const cartTotal = products.reduce(
+      (cur, product) => cur + product.count * product.price,
+      0
+    );
+
+    const newCart = await Cart.create({
+      products,
+      orderBy: id,
+      cartTotal,
+    });
+
+    res.json(newCart);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const getUserCart = asyncHandler(async (req, res) => {
+  const { id: userId } = req.user;
+  try {
+    const foundCart = await Cart.findOne({
+      orderBy: userId,
+    }).populate("products.product");
+    res.json(foundCart);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const emptyCart = asyncHandler(async (req, res) => {
+  const { id: userId } = req.user;
+
+  try {
+    const foundCart = await Cart.findOneAndDelete({
+      orderBy: userId,
+    });
+
+    res.json({
+      message: "clear cart success",
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
 module.exports = {
   createUser,
   loginUser,
@@ -331,4 +440,9 @@ module.exports = {
   updatePassword,
   forgotPasswordToken,
   resetPassword,
+  getWishList,
+  saveAddress,
+  userCart,
+  getUserCart,
+  emptyCart,
 };

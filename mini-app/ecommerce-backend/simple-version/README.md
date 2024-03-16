@@ -19,3 +19,4 @@ First:
 - It not have correct [RESPONSE_STATUS_CODE] for user know something wrong, and frontend can know something to show for user
 - Have many security problem in this source code @@
 - Error not throw for correct
+- router structure not good, if not maintain good will make confuse ex: if /user/:id put above /user/wishlist -> the wishlist will never reach, and occur problem
