@@ -18,3 +18,4 @@ This project create for learning html, css from create some simple micro-compone
 8. [] Accordion: Idea from shadcn or tailwind premium
 9. Image GAllery (apple.com)
 10. Complete apple.com clone with mac page ( this is a full page but only have some simple component and animation -> completed it in one day - TBA)
+11. The idea for window resize with flexible grid layout. 1. This window can resize through drag button, and 2. after resize, the grid inner window will re-calculate for how many grid item can show.
