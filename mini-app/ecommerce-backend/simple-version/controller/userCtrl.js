@@ -120,12 +120,12 @@ const logout = asyncHandler(async (req, res) => {
     secure: true,
   });
 
-  if (refreshToken !== refreshToken) {
+  if (refreshToken !== userRefreshToken) {
     res.status(403);
     throw new Error("Forbidden");
   }
 
-  const updateUser = await User.findByIdAndUpdate(id, {
+  await User.findByIdAndUpdate(id, {
     refreshToken: null,
   });
 
