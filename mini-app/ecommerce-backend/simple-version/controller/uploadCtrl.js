@@ -9,7 +9,7 @@ const {
   cloudinaryDeleteImage,
 } = require("../utils/cloudinary");
 
-const uploadImages = asyncHandler(async () => {
+const uploadImages = asyncHandler(async (req, res) => {
   try {
     const uploader = (path) => cloudinaryUploadImage(path);
     const urls = [];
@@ -20,6 +20,7 @@ const uploadImages = asyncHandler(async () => {
       //   const newpath = await uploader(path);
       const newpath = "image_path_temp";
       urls.push(newpath);
+      // remove the file in current path
       fs.unlinkSync(path);
     }
     res.json(files);

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const uniqid = require("uniqid");
 
 const crypto = require("crypto");
 
@@ -10,6 +11,7 @@ const User = require("../model/userModel");
 const Cart = require("../model/cartModel");
 const Order = require("../model/orderModel");
 const Product = require("../model/productModel");
+const Coupon = require("../model/couponModel");
 
 const { validateMongDbbId } = require("../utils/validateMongodbId");
 const { sendEmail } = require("./emailCtrl");
@@ -373,7 +375,7 @@ const userCart = asyncHandler(async (req, res) => {
         .select("price")
         .exec();
       let object = {
-        id: cart[i].prodId,
+        product: cart[i].prodId,
         count: cart[i].count,
         color: cart[i].color,
         price: product.price,
@@ -426,6 +428,169 @@ const emptyCart = asyncHandler(async (req, res) => {
   }
 });
 
+const applyCoupon = asyncHandler(async (req, res) => {
+  const { coupon } = req.body;
+
+  const { id: userId } = req.user;
+
+  try {
+    const foundCoupon = await Coupon.findOne({
+      title: coupon,
+    });
+
+    if (
+      !foundCoupon ||
+      !foundCoupon.expires ||
+      foundCoupon.expires < Date.now()
+    ) {
+      throw new Error("Not valid coupon");
+    }
+
+    const foundCart = await Cart.findOne({
+      orderBy: userId,
+    });
+
+    if (!foundCart || !foundCart.products.length) {
+      throw new Error("Cart is empty");
+    }
+
+    let afterApplyCoupon =
+      foundCart.cartTotal - (foundCart.cartTotal * foundCoupon.discount) / 100;
+    afterApplyCoupon = afterApplyCoupon.toFixed(2);
+
+    await Cart.findByIdAndUpdate(foundCart.findById, {
+      totalAfterDiscount: afterApplyCoupon,
+    });
+
+    res.json(afterApplyCoupon);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const createOrder = asyncHandler(async (req, res) => {
+  const { COD, couponApplied } = req.body;
+  const { id: userId } = req.user;
+  validateMongDbbId(userId);
+
+  try {
+    if (!COD) {
+      throw new Error("Create cart order fail");
+    }
+    const userFound = await User.findById(userId);
+
+    const userCart = await Cart.findOne({
+      orderBy: userId,
+    });
+
+    let finalAmount = userCart.cartTotal;
+
+    if (couponApplied) {
+      finalAmount = userCart.afterApplyCoupon;
+    }
+
+    const newOrder = await Order.create({
+      products: userCart.products,
+      paymentIntent: {
+        id: uniqid(),
+        method: "COD",
+        amount: finalAmount,
+        created: Date.now(),
+        currency: "USD",
+        status: "Cash on Delivery",
+      },
+      orderBy: userId,
+      orderStatus: "Cash on Delivery",
+    });
+
+    // sometime you need create a transaction for better maintain the action
+
+    let update = userCart.products.map((item) => {
+      return {
+        updateOne: {
+          filter: { _id: item._id },
+          update: {
+            $inc: {
+              quantity: -item.count,
+              sold: +item.count,
+            },
+          },
+        },
+      };
+    });
+    const updated = await Product.bulkWrite(update, {});
+    res.json({
+      message: "success",
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+const getOrder = asyncHandler(async (req, res) => {
+  const { id: userId } = req.user;
+  try {
+    const order = await Order.findOne({
+      orderBy: userId,
+    })
+      .populate("products.product")
+      .populate("orderBy");
+
+    res.json(order);
+  } catch (err) {
+    throw new Error();
+  }
+});
+
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate("products.product")
+      .populate("orderBy");
+    res.json(orders);
+  } catch (err) {
+    throw new Error();
+  }
+});
+
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  validateMongDbbId(userId);
+  try {
+    const order = await Order.findOne({
+      orderBy: userId,
+    })
+      .populate("products.product")
+      .populate("orderBy");
+
+    res.json(order);
+  } catch (err) {
+    throw new Error();
+  }
+});
+
+const updateOrderStatus = asyncHandler(async (req, res) => {
+  const { status } = req.body;
+  const { orderId } = req.params;
+  validateMongDbbId(orderId);
+  try {
+    const updateOrder = await Order.findByIdAndUpdate(
+      orderId,
+      {
+        "paymentIntent.status": status,
+        orderStatus: status,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json(updateOrder);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
 module.exports = {
   createUser,
   loginUser,
@@ -445,4 +610,10 @@ module.exports = {
   userCart,
   getUserCart,
   emptyCart,
+  applyCoupon,
+  createOrder,
+  getOrder,
+  getAllOrders,
+  getOrderByUserId,
+  updateOrderStatus,
 };

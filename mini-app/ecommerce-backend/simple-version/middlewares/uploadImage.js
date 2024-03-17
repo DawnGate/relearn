@@ -9,12 +9,12 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.filename + "-" + uniqueSuffix);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpeg");
   },
 });
 
 const multerFilter = function (req, file, cb) {
-  if (file.mimetype.startWith("image")) {
+  if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
     cb({ message: "Unsupported file format" }, false);
@@ -36,13 +36,13 @@ const productImageResize = async (req, res, next) => {
 
   await Promise.all(
     req.files.map(async (file) => {
+      const newPath = `${file.destination}/products/${file.filename}`;
       await sharp(file.path)
         .resize(300, 300)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
-        .toFile(`public/images/products/${file.filename}`);
-
-      fs.unlinkSync(`public/images/products/${file.filename}`);
+        .toFile(newPath);
+      fs.unlinkSync(file.path);
     })
   );
 

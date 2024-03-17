@@ -20,6 +20,12 @@ const {
   userCart,
   getUserCart,
   emptyCart,
+  applyCoupon,
+  createOrder,
+  getOrder,
+  getAllOrders,
+  getOrderByUserId,
+  updateOrderStatus,
 } = require("../controller/userCtrl");
 
 const {
@@ -47,6 +53,24 @@ router.post("/save-address", authMiddleware, saveAddress);
 router.post("/cart", authMiddleware, userCart);
 router.get("/cart", authMiddleware, getUserCart);
 router.delete("/cart", authMiddleware, emptyCart);
+
+router.post("/order", authMiddleware, createOrder);
+router.get("/order", authMiddleware, getOrder);
+router.get("/all-order", authMiddleware, isAdminMiddleware, getAllOrders);
+router.post(
+  "/order/update-status/:orderId",
+  authMiddleware,
+  isAdminMiddleware,
+  updateOrderStatus
+);
+router.get(
+  "/order/:userId",
+  authMiddleware,
+  isAdminMiddleware,
+  getOrderByUserId
+);
+
+router.post("/apply-coupon", authMiddleware, applyCoupon);
 
 router.get("/:id", authMiddleware, isAdminMiddleware, getAUser);
 router.delete("/:id", authMiddleware, isAdminMiddleware, deleteAUser);

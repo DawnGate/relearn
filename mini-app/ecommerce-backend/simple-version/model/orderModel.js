@@ -5,8 +5,13 @@ const orderSchema = new mongoose.Schema(
   {
     products: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        count: Number,
+        color: String,
+        price: Number,
       },
     ],
     paymentIntent: {},
