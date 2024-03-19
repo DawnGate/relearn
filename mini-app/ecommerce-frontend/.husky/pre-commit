@@ -1,0 +1,3 @@
+cd mini-app/ecommerce-frontend && npx lint-staged
+
+git add .
