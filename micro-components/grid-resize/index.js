@@ -4,15 +4,12 @@ const MainBox = () => {
   };
 
   return (
-    <div className="resizable-box">
-      <div
-        className="resizable-straight rs-horizontal left"
-        onDragStart={handleDrag}
-      ></div>
+    <div className="resizable-box" draggable onDragStart={handleDrag}>
+      <div className="resizable-straight rs-horizontal left"></div>
       <div className="resizable-straight rs-horizontal right"></div>
       <div className="resizable-straight rs-vertical top"></div>
       <div className="resizable-straight rs-vertical bottom"></div>
-      <div>This will implement later</div>
+      <div>Hello</div>
     </div>
   );
 };
@@ -140,7 +137,7 @@ const MainGridBox = () => {
 function App() {
   return (
     <div className="main-container">
-      <MainGridBox />
+      <MainBox />
     </div>
   );
 }

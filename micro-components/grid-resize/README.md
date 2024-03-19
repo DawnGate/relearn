@@ -12,6 +12,8 @@ We will create a simple Resizable grid with html, css, js from the example in in
 
 We will focus on how render many as possible box with video aspect ratio ( For video conference box :D)
 
+With draggable and resizable box I have found this link https://www.youtube.com/watch?v=NpBZtR1nLwA
+
 # Version history:
 
 - Version 0.1: View when have multiple
