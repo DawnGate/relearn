@@ -1,15 +1,134 @@
+const ResizeEdge = (props) => {
+  const edgeRef = React.useRef(null);
+
+  const [hasMount, setHasMount] = React.useState(false);
+
+  const [isDragging, setIsDragging] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasMount(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!hasMount) return;
+
+    let edgeLeft;
+    let edgeTop;
+
+    const onMouseMove = (event) => {
+      console.log(props.position, "move");
+      event.preventDefault();
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+
+      const offsetX = edgeLeft - clientX;
+      const offsetY = edgeTop - clientY;
+
+      let updateParentValue = {};
+      switch (props.position) {
+        case "top":
+          updateParentValue = {
+            height: offsetY,
+          };
+          break;
+        case "bottom":
+          updateParentValue = {
+            height: -offsetY,
+          };
+          break;
+        case "left":
+          updateParentValue = {
+            width: offsetX,
+          };
+          break;
+        case "right":
+          updateParentValue = {
+            width: -offsetX,
+          };
+          break;
+      }
+
+      edgeLeft = clientX;
+      edgeTop = clientY;
+
+      props.updateParentCallback(updateParentValue);
+    };
+
+    const onMouseDown = (e) => {
+      console.log(props.position);
+      edgeLeft = e.clientX;
+      edgeTop = e.clientY;
+
+      setIsDragging(true);
+
+      window.addEventListener("mousemove", onMouseMove);
+    };
+
+    const onMouseUp = () => {
+      setIsDragging(false);
+
+      window.removeEventListener("mousemove", onMouseMove);
+    };
+
+    edgeRef.current.addEventListener("mousedown", onMouseDown);
+
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      window.removeEventListener("mouseup", onMouseUp);
+      edgeRef.current.removeEventListener("mousedown", onMouseDown);
+    };
+  }, [hasMount]);
+
+  return (
+    <div
+      ref={edgeRef}
+      className={`resizable-straight rs-${
+        ["top", "bottom"].includes(props.position) ? "vertical" : "horizontal"
+      } ${props.position} ${isDragging ? "dragging" : ""}`}
+    ></div>
+  );
+};
+
 const MainBox = () => {
-  const handleDrag = (e) => {
-    console.log(e);
+  const [height, setHeight] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
+
+  const boxReft = React.useRef(null);
+
+  React.useEffect(() => {
+    setHeight(boxReft.current.clientHeight);
+    setWidth(boxReft.current.clientWidth);
+  }, []);
+
+  const updateParentCallback = (updateVal) => {
+    if (updateVal.width) {
+      setWidth((prev) => prev + updateVal.width);
+    } else if (updateVal.height) {
+      setHeight((prev) => prev + updateVal.height);
+    }
   };
 
   return (
-    <div className="resizable-box" draggable onDragStart={handleDrag}>
-      <div className="resizable-straight rs-horizontal left"></div>
-      <div className="resizable-straight rs-horizontal right"></div>
-      <div className="resizable-straight rs-vertical top"></div>
-      <div className="resizable-straight rs-vertical bottom"></div>
-      <div>Hello</div>
+    <div
+      ref={boxReft}
+      className="resizable-box"
+      style={{
+        width: Math.max(100, width),
+        height: Math.max(100, height),
+      }}
+    >
+      <ResizeEdge position="top" updateParentCallback={updateParentCallback} />
+      <ResizeEdge
+        position="bottom"
+        updateParentCallback={updateParentCallback}
+      />
+      <ResizeEdge position="left" updateParentCallback={updateParentCallback} />
+      <ResizeEdge
+        position="right"
+        updateParentCallback={updateParentCallback}
+      />
+      <MainGridBox />
     </div>
   );
 };
@@ -98,6 +217,7 @@ const MainGridBox = () => {
             width: 8 * 2,
             height: 8 * 2,
           };
+          console.log(width, height);
 
           clearTimeout(timeoutRef.current);
           timeoutRef.current = setTimeout(() => {
@@ -115,6 +235,8 @@ const MainGridBox = () => {
 
     resizeObserver.observe(node);
   }, []);
+
+  console.log(rows, columns);
 
   return (
     <div className="container-grid-box" ref={containerBoxRef}>

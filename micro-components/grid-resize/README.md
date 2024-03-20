@@ -6,7 +6,7 @@ ideas from [site]
 
 We will create a simple Resizable grid with html, css, js from the example in internet
 
-1. The current resizable box (the box can resize from both horizontal and vertical is pending -> time to do more than using library) [ - not done, maybe we comeback later]
+1. The current resizable box (the box can resize from both horizontal and vertical is pending -> time to do more than using library) [X]
 
 2. The grid item inner the box can recalculate and give the max possible items can inner the box with spacing [X]
 
@@ -22,4 +22,8 @@ With draggable and resizable box I have found this link https://www.youtube.com/
 
 - Version 0.1: View when have 1 row, or column
   ![Version 0.1](./demo/version_0.2.png "Version 0.2 demo")
+  _(image) Version 0.2_
+
+- Version 0.2: View when you can resizable from edge
+  ![Version 0.3](./demo/version_0.3.png "Version 0.2 demo")
   _(image) Version 0.2_
