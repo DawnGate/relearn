@@ -9,6 +9,7 @@ const initialState: CounterState = {
 	value: 0,
 }
 
+// ? This slice for demo
 export const counterSlice = createSlice({
 	name: 'counter',
 	initialState,

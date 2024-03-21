@@ -10,14 +10,11 @@ import { logInScheme } from '@/utils'
 
 import { TextField, LoginButton } from '@/components'
 
+import { LoginImpl } from '@/types'
+
 interface Props {
 	isLoading: boolean
 	onSubmit: any
-}
-
-interface FormInput {
-	email: string
-	password: string
 }
 
 export const LoginForm = ({ isLoading, onSubmit }: Props) => {
@@ -26,7 +23,7 @@ export const LoginForm = ({ isLoading, onSubmit }: Props) => {
 		handleSubmit,
 		setFocus,
 		formState: { errors: formErrors },
-	} = useForm<FormInput>({
+	} = useForm<LoginImpl>({
 		resolver: yupResolver(logInScheme),
 		defaultValues: {
 			email: '',
