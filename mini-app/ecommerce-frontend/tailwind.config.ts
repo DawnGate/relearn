@@ -12,6 +12,12 @@ const config: Config = {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
+			boxShadow: {
+				'3xl': '0 0 10px 3px rgba(0,0,0,0.08)',
+			},
+		},
+		container: {
+			center: true,
 		},
 	},
 	plugins: [],
