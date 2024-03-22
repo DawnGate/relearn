@@ -13,7 +13,7 @@ const login = apiHandler(async (req: NextRequest) => {
 		data: result,
 		message: 'Login successful',
 	})
-})
+}, {})
 
 export const POST = login
 

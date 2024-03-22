@@ -35,8 +35,6 @@ export const Alert = () => {
 		appDispatch(removeAlert())
 	}
 
-	console.log(isShow)
-
 	useEffect(() => {
 		if (isShow) {
 			const timeout = setTimeout(() => {
@@ -44,7 +42,7 @@ export const Alert = () => {
 			}, 2000)
 			return () => clearTimeout(timeout)
 		}
-	}, [isShow])
+	}, [appDispatch, isShow])
 
 	const containerClassName = `${isShow ? 'opacity-100 visible' : 'opacity-0 invisible'} transition-all duration-500 fixed inset-0 z-40`
 	const boxClassName = `${isShow ? 'top-40' : '-top-full'} max-w-md fixed transition-all duration-700 left-0 right-0 mx-auto z-40`

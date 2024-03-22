@@ -40,6 +40,7 @@ const connectDB = async () => {
 
 	try {
 		cached.conn = await cached.promise
+		console.log('connect db success')
 	} catch (err) {
 		cached.promise = null
 		throw err

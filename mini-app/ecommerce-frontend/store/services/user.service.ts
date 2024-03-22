@@ -28,7 +28,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
 			}),
 			providesTags: [CacheTags.USER],
 		}),
-		createUser: builder.mutation<any, { body: Omit<RegisterImpl, 'confirmPassword'> }>({
+		createUser: builder.mutation<
+			LoginResponseImpl,
+			{ body: Omit<RegisterImpl, 'confirmPassword'> }
+		>({
 			query: ({ body }) => ({
 				url: '/api/auth/register',
 				method: 'POST',

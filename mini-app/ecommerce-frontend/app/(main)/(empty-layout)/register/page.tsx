@@ -53,7 +53,8 @@ const LoginPage = () => {
 		}
 	}
 	const onSuccess = () => {
-		appDispatch(userLogin(data.data.token))
+		appDispatch(userLogin(data?.data.token || ''))
+		console.log(data)
 		reset()
 		replace(redirectTo)
 	}

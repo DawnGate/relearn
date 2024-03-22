@@ -1,16 +1,16 @@
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import { basePlugin } from './base_model'
 
-// interface IUser extends mongoose.Document {
-// 	name: string
-// 	email: string
-// 	password: string
-// 	role: 'user' | 'admin'
-// 	root: boolean
-// 	mobile: string
-// }
+interface IUser extends mongoose.Document {
+	name: string
+	email: string
+	password: string
+	role: 'user' | 'admin'
+	root: boolean
+	mobile: string
+}
 
-const UserSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema<IUser>(
 	{
 		name: { type: String, required: true },
 		email: { type: String, require: true, unique: true },
@@ -28,4 +28,5 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.plugin(basePlugin)
 
-export const User = mongoose.models.user || mongoose.model('user', UserSchema)
+export const User =
+	(mongoose.models.user as Model<IUser>) || mongoose.model<IUser>('user', UserSchema)

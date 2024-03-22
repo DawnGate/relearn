@@ -23,7 +23,7 @@ const verifyToken = (req: NextRequest, isJwt: boolean) => {
 	}
 }
 
-const createAccessToken = (payload: string) => {
+const createAccessToken = (payload: { id: string }) => {
 	return jwt.sign(payload, process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET!, {
 		expiresIn: '1d',
 	})
