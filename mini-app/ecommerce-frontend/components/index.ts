@@ -8,6 +8,7 @@ export { TextField } from './common/TextField'
 // OTHERS
 export { Header } from './Header'
 export { Footer } from './Footer'
+export { Alert } from './Alert'
 
 // *SVGS
 export { default as Logo } from './svgs/logo.svg'

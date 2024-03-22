@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import counterReducer from './slices/counter/counterSlice'
-import userReducer from './slices/counter/user.slice'
+import counterReducer from './slices/counter.slice'
+import userReducer from './slices/user.slice'
+import alertReducer from './slices/alert.slice'
+
+export * from './slices/counter.slice'
+export * from './slices/alert.slice'
 
 import { apiSlice } from './services/api'
 
@@ -10,6 +14,7 @@ export const makeStore = () => {
 		reducer: {
 			counter: counterReducer,
 			user: userReducer,
+			alert: alertReducer,
 			[apiSlice.reducerPath]: apiSlice.reducer,
 		},
 		middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),

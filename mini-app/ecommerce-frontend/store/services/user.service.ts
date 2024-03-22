@@ -1,11 +1,11 @@
-import { LoginImpl } from '@/types'
+import { LoginImpl, LoginResponseImpl } from '@/types'
 import { apiSlice } from './api'
 import { CacheTags } from './tagsConstant'
 
 export const userApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
-		login: builder.mutation({
-			query: ({ body }: { body: LoginImpl }) => ({
+		login: builder.mutation<LoginResponseImpl, { body: LoginImpl }>({
+			query: ({ body }) => ({
 				url: '/api/auth/login',
 				method: 'POST',
 				body,
@@ -47,3 +47,5 @@ export const userApiSlice = apiSlice.injectEndpoints({
 		}),
 	}),
 })
+
+export const { useLoginMutation, useCreateUserMutation, useGetUserInfoQuery } = userApiSlice
