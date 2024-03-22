@@ -1,4 +1,4 @@
-import { LoginImpl, LoginResponseImpl } from '@/types'
+import { LoginImpl, LoginResponseImpl, RegisterImpl } from '@/types'
 import { apiSlice } from './api'
 import { CacheTags } from './tagsConstant'
 
@@ -28,8 +28,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
 			}),
 			providesTags: [CacheTags.USER],
 		}),
-		createUser: builder.mutation({
-			query: ({ body }: { body: any }) => ({
+		createUser: builder.mutation<any, { body: Omit<RegisterImpl, 'confirmPassword'> }>({
+			query: ({ body }) => ({
 				url: '/api/auth/register',
 				method: 'POST',
 				body,

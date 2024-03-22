@@ -1,6 +1,6 @@
 'use client'
 
-import { removeAlert, selectAlert } from '@/store'
+import { removeAlert, selectAlert } from '@/store/slices'
 import { useAppDispatch } from '@/store/hooks'
 import Image from 'next/image'
 import { useEffect } from 'react'

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import { showAlert } from '@/store'
+import { showAlert } from '@/store/slices'
 import { useAppDispatch } from '@/store/hooks'
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
@@ -58,7 +58,8 @@ export const HandleResponse = ({
 				}),
 			)
 		}
-	}, [])
+		// it only render and action 1 time, so don't need to capture what will action
+	}, [isSuccess, isError])
 
 	return null
 }

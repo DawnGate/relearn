@@ -14,7 +14,7 @@ import { LoginImpl } from '@/types'
 
 interface Props {
 	isLoading: boolean
-	onSubmit: any
+	onSubmit: (validatedData: LoginImpl) => void
 }
 
 export const LoginForm = ({ isLoading, onSubmit }: Props) => {
@@ -31,7 +31,7 @@ export const LoginForm = ({ isLoading, onSubmit }: Props) => {
 		},
 	})
 
-	const onHandleSubmit: SubmitHandler<FormInput> = data => {
+	const onHandleSubmit: SubmitHandler<LoginImpl> = data => {
 		onSubmit(data)
 	}
 

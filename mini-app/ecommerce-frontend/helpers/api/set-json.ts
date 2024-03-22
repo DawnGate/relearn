@@ -5,7 +5,7 @@ export const setJson = <T>({
 }: {
 	code?: number
 	message?: string
-	data: T
+	data?: T
 }) => {
 	return {
 		code: code || 0,

@@ -4,9 +4,6 @@ import counterReducer from './slices/counter.slice'
 import userReducer from './slices/user.slice'
 import alertReducer from './slices/alert.slice'
 
-export * from './slices/counter.slice'
-export * from './slices/alert.slice'
-
 import { apiSlice } from './services/api'
 
 export const makeStore = () => {

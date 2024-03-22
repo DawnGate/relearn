@@ -1,9 +1,10 @@
 // *COMMON
-
 export { Button, LoginButton } from './common/Button'
 export { Icons } from './common/Icons'
 export { DisplayError } from './common/DisplayError'
 export { TextField } from './common/TextField'
+export { Modal } from './common/Modal'
+export { HandleResponse } from './common/HandleResponse'
 
 // OTHERS
 export { Header } from './Header'
@@ -19,3 +20,6 @@ export { LoginForm } from './forms/LoginForm'
 
 // *LOADING
 export { Loading } from './loading/Loading'
+
+// *MODAL
+export { RedirectToLogin } from './modals/RedirectToLogin'

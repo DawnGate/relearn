@@ -3,6 +3,13 @@ export type LoginImpl = {
 	password: string
 }
 
+export type RegisterImpl = {
+	email: string
+	name: string
+	password: string
+	confirmPassword: string
+}
+
 export type ResponseImpl<T> = {
 	data: T
 	message: string

@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import { LoginForm, Logo } from '@/components'
-import { useLoginMutation } from '@/store/services/user.service'
-
 import { LoginImpl } from '@/types'
-import { HandleResponse } from '@/components/common/HandleResponse'
+
+import { HandleResponse, LoginForm, Logo } from '@/components'
+
+import { useLoginMutation } from '@/store/services'
 import { useAppDispatch } from '@/store/hooks'
-import { userLogin } from '@/store/slices/user.slice'
+import { userLogin } from '@/store/slices'
 
 const LoginPage = () => {
 	const { replace } = useRouter()

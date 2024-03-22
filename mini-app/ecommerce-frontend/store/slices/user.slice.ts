@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 import type { RootState } from '@/store'
 
-export interface CounterState {
+export interface AuthState {
 	token: string
 	lastScreen: any
 }
@@ -12,12 +12,12 @@ export interface CounterState {
 const cookie_token_key = 'token'
 const token = Cookies.get(cookie_token_key) || ''
 
-const initialState: CounterState = {
+const initialState: AuthState = {
 	token: token,
 	lastScreen: null,
 }
 
-export const counterSlice = createSlice({
+export const authSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
@@ -32,8 +32,8 @@ export const counterSlice = createSlice({
 	},
 })
 
-export const { userLogin, userLogout } = counterSlice.actions
+export const { userLogin, userLogout } = authSlice.actions
 
 export const selectUserToken = (state: RootState) => state.user.token
 
-export default counterSlice.reducer
+export default authSlice.reducer
