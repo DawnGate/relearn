@@ -1,5 +1,11 @@
+import { ClientLayout } from '@/components'
+
 const NotFoundPage = () => {
-	return <div>Not found</div>
+	return (
+		<ClientLayout>
+			<div>Not found</div>
+		</ClientLayout>
+	)
 }
 
 export default NotFoundPage
