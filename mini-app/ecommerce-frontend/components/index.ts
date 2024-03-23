@@ -20,6 +20,8 @@ export { LoginForm } from './forms/LoginForm'
 
 // *LOADING
 export { Loading } from './loading/Loading'
+export { BigLoading } from './loading/BigLoading'
+export { PageLoading } from './loading/PageLoading'
 
 // *MODAL
 export { RedirectToLogin } from './modals/RedirectToLogin'

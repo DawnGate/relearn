@@ -36,7 +36,7 @@ export const apiHandler = (
 			console.log(responseBody, 'body response')
 			return NextResponse.json(responseBody || {})
 		} catch (err) {
-			console.log('global error handler', err)
+			console.log('global error handler', (err as Error).name)
 			return errorHandler(err as Error)
 		}
 	}

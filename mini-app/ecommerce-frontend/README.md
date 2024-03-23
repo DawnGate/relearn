@@ -33,6 +33,7 @@ Link blog for more information: [https://dev.to/shashwatnautiyal/complete-guide-
 
 1. This project give idea of nextjs like a full-stack web development, when next server handle backend api
 2. This project using jwt one side, only using access token and store it into cookie for verify user. In case, using jwt access_token and refresh_token, need store refresh-token in to a schema of the modal User.
+3. Idea of page loading is good, make user feel better when waiting in nextjs page
 
 # Some improve
 

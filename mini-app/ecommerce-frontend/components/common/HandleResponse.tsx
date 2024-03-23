@@ -50,7 +50,6 @@ export const HandleResponse = ({
 			)
 		}
 
-		console.log(isError, error)
 		if (isError) {
 			if (onError) onError()
 			appDispatch(

@@ -32,6 +32,11 @@ const LoginPage = () => {
 		}
 	}
 
+	const onSuccess = () => {
+		appDispatch(userLogin(data?.data.token || ''))
+		replace(redirectTo)
+	}
+
 	return (
 		<>
 			{(isSuccess || isError) && (
@@ -40,10 +45,7 @@ const LoginPage = () => {
 					isSuccess={isSuccess}
 					error={error}
 					message={data?.message || ''}
-					onSuccess={() => {
-						appDispatch(userLogin(data?.data.token || ''))
-						replace(redirectTo)
-					}}
+					onSuccess={onSuccess}
 				/>
 			)}
 			<main className='grid min-h-screen items-center'>

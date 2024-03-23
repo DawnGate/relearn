@@ -3,7 +3,7 @@ import { auth, db } from '@/helpers'
 import bcrypt from 'bcryptjs'
 
 import { IUser, User } from '@/models'
-import { RegisterImpl } from '@/types'
+import { LoginImpl, RegisterImpl } from '@/types'
 import { FilterQuery } from 'mongoose'
 
 const getOne = async (filter: FilterQuery<IUser>) => {
@@ -42,7 +42,42 @@ const create = async ({ email, name, password }: Omit<RegisterImpl, 'confirmPass
 	}
 }
 
+const authenticate = async ({ email, password }: LoginImpl) => {
+	await db.connectDB()
+
+	const foundUser = await User.findOne({ email })
+
+	if (!foundUser) {
+		const error = new Error('User not existed')
+		error.name = 'ErrorUserNotExisted'
+		throw error
+	}
+
+	const isMatch = await bcrypt.compare(password, foundUser.password)
+
+	if (!isMatch) {
+		const error = new Error('Incorrect email or password')
+		error.name = 'ErrorPasswordNotMatch'
+		throw error
+	}
+
+	const newToken = auth.createAccessToken({
+		id: foundUser._id,
+	})
+
+	return {
+		user: {
+			email: foundUser.email,
+			role: foundUser.role,
+			root: foundUser.root,
+			name: foundUser.name,
+		},
+		token: newToken,
+	}
+}
+
 export const usersRepo = {
 	getOne,
 	create,
+	authenticate,
 }

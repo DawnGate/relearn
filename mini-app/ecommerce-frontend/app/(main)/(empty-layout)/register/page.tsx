@@ -54,7 +54,6 @@ const LoginPage = () => {
 	}
 	const onSuccess = () => {
 		appDispatch(userLogin(data?.data.token || ''))
-		console.log(data, 'success')
 		reset()
 		replace(redirectTo)
 	}
@@ -62,7 +61,6 @@ const LoginPage = () => {
 	const submitHandler = async (validatedData: RegisterImpl) => {
 		const { email, name, password } = validatedData
 		if (email && password && name) {
-			console.log(email, password, name, 'Handler submit')
 			await createUser({
 				body: {
 					email,
