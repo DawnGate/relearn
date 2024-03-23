@@ -5,6 +5,7 @@ const verifyToken = (req: NextRequest, isJwt: boolean) => {
 	try {
 		const token = req.headers.get('authorization')
 
+		// TODO: I feel this is not correct
 		if (!token) {
 			throw new Error('Authorization must in header')
 		}

@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/store/hooks'
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { SerializedError } from '@reduxjs/toolkit/react'
+import { ResponseImpl } from '@/types'
 
 interface Props {
 	isSuccess: boolean
@@ -27,18 +28,18 @@ export const HandleResponse = ({
 }: Props) => {
 	const appDispatch = useAppDispatch()
 
-	let errMsg: string
-
-	if (error) {
-		// TODO: type for error
-		if ('status' in error) {
-			errMsg = JSON.stringify(error.status)
-		} else {
-			errMsg = 'error'
-		}
-	}
-
 	useEffect(() => {
+		let errMsg = 'Unknown error'
+
+		if (error) {
+			if ('data' in error) {
+				const data = error.data as ResponseImpl<string>
+				errMsg = data.message
+			} else if ('status' in error) {
+				errMsg = JSON.stringify(error.status)
+			}
+		}
+
 		if (isSuccess) {
 			if (onSuccess) onSuccess()
 			appDispatch(
@@ -49,6 +50,7 @@ export const HandleResponse = ({
 			)
 		}
 
+		console.log(isError, error)
 		if (isError) {
 			if (onError) onError()
 			appDispatch(

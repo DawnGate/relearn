@@ -9,7 +9,7 @@ const register = apiHandler(
 		const body = await req.json()
 		console.log(body)
 		const result = await usersRepo.create(body)
-		console.warn(result, 'this is result')
+		console.log(result, 'result')
 		return setJson({
 			data: result,
 		})

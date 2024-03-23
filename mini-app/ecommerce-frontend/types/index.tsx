@@ -13,6 +13,7 @@ export type RegisterImpl = {
 export type ResponseImpl<T> = {
 	data: T
 	message: string
+	code: number
 }
 
 export type LoginResponseImpl = ResponseImpl<{

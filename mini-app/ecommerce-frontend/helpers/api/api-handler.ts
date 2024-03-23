@@ -1,6 +1,8 @@
 import Joi from 'joi'
 import { NextRequest, NextResponse } from 'next/server'
-import { errorHandler, setJson } from '.'
+import { errorHandler, jwtMiddleware, setJson } from '.'
+import { identityMiddleware } from './identify-middleware'
+import { validateMiddleware } from './validate-middleware'
 
 export const isPublicPath = (req: NextRequest) => {
 	const publicPaths = ['POST:/api/auth/login', 'POST:/api/auth/logout', 'POST:/api/auth/register']
@@ -14,7 +16,7 @@ export const apiHandler = (
 		schema,
 		isJwt,
 	}: {
-		identity?: any
+		identity?: string
 		schema?: Joi.Schema
 		isJwt?: boolean
 	},
@@ -23,10 +25,11 @@ export const apiHandler = (
 		try {
 			if (!isPublicPath(req)) {
 				// global middleware
-				console.log('call middle ware')
+				jwtMiddleware(req, isJwt)
+				await identityMiddleware(req, identity, isJwt)
 			}
 
-			console.log(identity, schema, isJwt)
+			await validateMiddleware(req, schema)
 
 			// router handler
 			const responseBody = await handler(req)

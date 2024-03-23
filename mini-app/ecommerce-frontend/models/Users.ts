@@ -1,11 +1,11 @@
 import mongoose, { Model } from 'mongoose'
 import { basePlugin } from './base_model'
 
-interface IUser extends mongoose.Document {
+export interface IUser extends mongoose.Document {
 	name: string
 	email: string
 	password: string
-	role: 'user' | 'admin'
+	role: 'user' | 'admin' | 'root'
 	root: boolean
 	mobile: string
 }

@@ -2,15 +2,11 @@ import { auth, db } from '@/helpers'
 
 import bcrypt from 'bcryptjs'
 
-import { User } from '@/models'
+import { IUser, User } from '@/models'
 import { RegisterImpl } from '@/types'
 import { FilterQuery } from 'mongoose'
 
-const getOne = async (
-	filter: FilterQuery<{
-		id: string
-	}>,
-) => {
+const getOne = async (filter: FilterQuery<IUser>) => {
 	await db.connectDB()
 	const user = await User.findOne(filter).lean().exec()
 
@@ -31,7 +27,9 @@ const create = async ({ email, name, password }: Omit<RegisterImpl, 'confirmPass
 	const newUser = new User({ name, email, password: hashPassword })
 	await newUser.save()
 
-	const token = auth.createAccessToken(newUser._id)
+	const token = auth.createAccessToken({
+		id: newUser._id,
+	})
 
 	return {
 		user: {
