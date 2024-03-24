@@ -13,6 +13,19 @@ const getOne = async (filter: FilterQuery<IUser>) => {
 	return user
 }
 
+const getById = async (userId: string) => {
+	await db.connectDB()
+	const user = await User.findById(userId)
+
+	if (!user) {
+		const error = new Error('User not found')
+		error.name = 'ErrorUserNotFound'
+		throw error
+	}
+
+	return user
+}
+
 const create = async ({ email, name, password }: Omit<RegisterImpl, 'confirmPassword'>) => {
 	await db.connectDB()
 
@@ -80,4 +93,5 @@ export const usersRepo = {
 	getOne,
 	create,
 	authenticate,
+	getById,
 }

@@ -1,4 +1,4 @@
-import { LoginImpl, LoginResponseImpl, RegisterImpl } from '@/types'
+import { GetUserInfoImpl, LoginImpl, LoginResponseImpl, RegisterImpl } from '@/types'
 import { apiSlice } from './api'
 import { CacheTags } from './tagsConstant'
 
@@ -21,7 +21,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 				CacheTags.BANNER,
 			],
 		}),
-		getUserInfo: builder.query({
+		getUserInfo: builder.query<GetUserInfoImpl, undefined>({
 			query: () => ({
 				url: '/api/auth/user',
 				method: 'GET',

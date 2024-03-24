@@ -1,5 +1,7 @@
+import { ClientLayout } from '@/components'
+
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-	return <>{children}</>
+	return <ClientLayout>{children}</ClientLayout>
 }
 
 export default MainLayout

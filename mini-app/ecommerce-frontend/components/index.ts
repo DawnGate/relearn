@@ -1,12 +1,13 @@
 // *COMMON
-export { Button, LoginButton } from './common/Button'
-export { Icons } from './common/Icons'
-export { DisplayError } from './common/DisplayError'
-export { TextField } from './common/TextField'
-export { Modal } from './common/Modal'
-export { HandleResponse } from './common/HandleResponse'
 export { ArrowLink } from './common/ArrowLink'
+export { Button, LoginButton } from './common/Button'
+export { DisplayError } from './common/DisplayError'
+export { HandleResponse } from './common/HandleResponse'
+export { Icons } from './common/Icons'
+export { Modal } from './common/Modal'
 export { ResponsiveImage } from './common/ResponsiveImage'
+export { Skeleton } from './common/Skeleton'
+export { TextField } from './common/TextField'
 
 // *OTHERS
 export { Header } from './Header'

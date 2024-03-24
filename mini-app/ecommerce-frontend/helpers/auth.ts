@@ -5,12 +5,12 @@ const verifyToken = (req: NextRequest, isJwt: boolean) => {
 	try {
 		const token = req.headers.get('authorization')
 
-		// TODO: I feel this is not correct
-		if (!token) {
+		if (!token || !token.startsWith('Bearer')) {
 			throw new Error('Authorization must in header')
 		}
-		console.log(token)
-		const decoded = jwt.verify(token, process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET!)
+		const cleanToken = token.split(' ')[1]
+		console.log(token, cleanToken)
+		const decoded = jwt.verify(cleanToken, process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET!)
 		if (typeof decoded !== 'string') {
 			const id = decoded.id as string
 			return id

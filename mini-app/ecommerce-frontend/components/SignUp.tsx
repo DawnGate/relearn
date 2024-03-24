@@ -2,14 +2,21 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { Icons } from '@/components'
+import { Icons, Skeleton } from '@/components'
+import { useUserInfo } from '@/hooks'
 
 export const SignUp = () => {
 	const pathname = usePathname()
 	// TODO Display when verify user
-	const isVerifyUser = false
+	const { userInfo, isVerify, isLoading } = useUserInfo()
 
-	if (!isVerifyUser) {
+	console.log(isVerify, userInfo, isLoading)
+
+	if (isLoading) {
+		return <Skeleton.Item height='h-8' width='w-7 lg:w-12' animated='background' />
+	}
+
+	if (!isVerify) {
 		return (
 			<div className='flex-center gap-x-3 text-sm lg:rounded-md lg:border lg:border-gray-300 lg:px-3 lg:py-2'>
 				<Link href={`/register?redirectTo=${pathname}`} className='hidden px-2 lg:block'>
@@ -23,6 +30,13 @@ export const SignUp = () => {
 			</div>
 		)
 	} else {
-		return <div>Todo</div>
+		return (
+			<>
+				<Link href='/profile'>
+					<Icons.User className='icon h-7 w-7' />
+				</Link>
+				<div className='hidden lg:block'>User: {userInfo?.name}</div>
+			</>
+		)
 	}
 }

@@ -1,3 +1,5 @@
+import { IMUser } from '@/models'
+
 export type LoginImpl = {
 	email: string
 	password: string
@@ -19,5 +21,7 @@ export type ResponseImpl<T> = {
 export type LoginResponseImpl = ResponseImpl<{
 	token: string
 }>
+
+export type GetUserInfoImpl = ResponseImpl<Omit<IMUser, 'password'>>
 
 export type AlertStatusImpl = 'success' | 'error' | 'exclamation' | 'question' | ''
