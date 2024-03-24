@@ -5,6 +5,8 @@ export { DisplayError } from './common/DisplayError'
 export { TextField } from './common/TextField'
 export { Modal } from './common/Modal'
 export { HandleResponse } from './common/HandleResponse'
+export { ArrowLink } from './common/ArrowLink'
+export { ResponsiveImage } from './common/ResponsiveImage'
 
 // *OTHERS
 export { Header } from './Header'

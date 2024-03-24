@@ -3,11 +3,10 @@
 import { ChangeEvent, InputHTMLAttributes } from 'react'
 
 import { DisplayError } from '@/components'
-import { FieldError, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldError, FieldPath, FieldValues, useController, Control } from 'react-hook-form'
 
 type Props<T extends FieldValues> = InputHTMLAttributes<HTMLInputElement> & {
-	// control: Control<T, object>
-	control: any
+	control: Control<T, object>
 	direction?: string
 	errors?: FieldError
 	name: FieldPath<T>

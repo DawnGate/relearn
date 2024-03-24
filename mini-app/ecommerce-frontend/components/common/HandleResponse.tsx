@@ -60,6 +60,7 @@ export const HandleResponse = ({
 			)
 		}
 		// it only render and action 1 time, so don't need to capture what will action
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess, isError])
 
 	return null

@@ -11,7 +11,7 @@ export const Header = () => {
 					</Link>
 					<Sidebar />
 				</div>
-				<div className='inline-flex w-full items-center justify-between space-x-10 border-b py-2 lg:border-b-0'>
+				<div className='inline-flex w-full min-w-0 items-center justify-between space-x-10 border-b py-2 lg:border-b-0'>
 					<Search />
 
 					<div className='inline-flex items-center space-x-4 pr-4'>

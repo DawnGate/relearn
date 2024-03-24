@@ -7,12 +7,12 @@ export const Search = () => {
 	const [isShowSearchModal, searchModalHandlers] = useDisclosure()
 	// render
 	return (
-		<div className='flex max-w-3xl flex-grow flex-row'>
+		<div className='flex min-w-0 max-w-3xl flex-grow flex-row'>
 			<div
 				onClick={searchModalHandlers.open}
-				className='flex flex-grow flex-row rounded-md bg-zinc-200/80'
+				className='flex min-w-0 flex-grow flex-row rounded-md bg-zinc-200/80'
 			>
-				<button className='flex-1 bg-transparent px-3 py-1 text-left text-gray-400'>
+				<button className='flex-1 truncate bg-transparent px-3 py-1 text-left text-gray-400'>
 					Be good at fake things and use good search...
 				</button>
 				<button className='p-2'>
