@@ -23,4 +23,4 @@ const getUserInfo = apiHandler(
 	},
 )
 
-export const POST = getUserInfo
+export const GET = getUserInfo

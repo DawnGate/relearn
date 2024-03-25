@@ -10,7 +10,7 @@ export interface AuthState {
 
 // read access token from local cookie
 const cookie_token_key = 'token'
-const token = Cookies.get(cookie_token_key) || ''
+const token = Cookies.get(cookie_token_key) ?? ''
 
 const initialState: AuthState = {
 	token: token,

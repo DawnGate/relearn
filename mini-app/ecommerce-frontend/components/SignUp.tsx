@@ -2,15 +2,15 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { Icons, Skeleton } from '@/components'
+import { Icons, Skeleton, UserDropdown } from '@/components'
+
 import { useUserInfo } from '@/hooks'
 
-export const SignUp = () => {
-	const pathname = usePathname()
-	// TODO Display when verify user
-	const { userInfo, isVerify, isLoading } = useUserInfo()
+import { WithHydrationFix } from '@/hoc'
 
-	console.log(isVerify, userInfo, isLoading)
+const SignUpComponent = () => {
+	const pathname = usePathname()
+	const { userInfo, isVerify, isLoading } = useUserInfo()
 
 	if (isLoading) {
 		return <Skeleton.Item height='h-8' width='w-7 lg:w-12' animated='background' />
@@ -29,14 +29,22 @@ export const SignUp = () => {
 				</Link>
 			</div>
 		)
-	} else {
+	} else if (userInfo) {
 		return (
 			<>
-				<Link href='/profile'>
-					<Icons.User className='icon h-7 w-7' />
-				</Link>
-				<div className='hidden lg:block'>User: {userInfo?.name}</div>
+				<div className='lg:hidden'>
+					<Link href='/profile'>
+						<Icons.User className='icon h-7 w-7' />
+					</Link>
+				</div>
+				<div className='hidden lg:block'>
+					<UserDropdown name={userInfo?.name} />
+				</div>
 			</>
 		)
 	}
+
+	return null
 }
+
+export const SignUp = WithHydrationFix(SignUpComponent)

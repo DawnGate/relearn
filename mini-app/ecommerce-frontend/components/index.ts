@@ -17,6 +17,7 @@ export { Services } from './Services'
 export { Sidebar } from './Sidebar'
 export { Search } from './Search'
 export { SignUp } from './SignUp'
+export { UserDropdown } from './UserDropdown'
 
 // *CART
 export { Cart } from './cart/Cart'
@@ -30,6 +31,7 @@ export { default as DaysReturn } from './svgs/days-return.svg'
 export { default as Support } from './svgs/support.svg'
 export { default as ExpressDelivery } from './svgs/express-delivery.svg'
 export { default as OriginalProducts } from './svgs/original-products.svg'
+export { default as Person } from './svgs/person.svg'
 
 // *LOGIN FORMS
 
