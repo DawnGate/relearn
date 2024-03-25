@@ -7,7 +7,6 @@ import Joi from 'joi'
 const login = apiHandler(
 	async (req: NextRequest) => {
 		const body = await req.json()
-		console.log(body)
 		const result = await usersRepo.authenticate(body)
 		return setJson({
 			data: result,

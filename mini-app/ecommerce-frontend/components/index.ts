@@ -9,6 +9,11 @@ export { ResponsiveImage } from './common/ResponsiveImage'
 export { Skeleton } from './common/Skeleton'
 export { TextField } from './common/TextField'
 
+// *SKELETON
+
+export { SidebarSkeleton } from './skeleton/SidebarSkeleton'
+export { NavbarSkeleton } from './skeleton/NavbarSkeleton'
+
 // *OTHERS
 export { Header } from './Header'
 export { Footer } from './Footer'
@@ -18,6 +23,8 @@ export { Sidebar } from './Sidebar'
 export { Search } from './Search'
 export { SignUp } from './SignUp'
 export { UserDropdown } from './UserDropdown'
+export { Navbar } from './Navbar'
+export { AddressBar } from './AddressBar'
 
 // *CART
 export { Cart } from './cart/Cart'

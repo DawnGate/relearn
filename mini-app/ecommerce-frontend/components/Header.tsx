@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Cart, LogoH, Search, Sidebar, SignUp } from '@/components'
+
+import { AddressBar, Cart, LogoH, Navbar, Search, Sidebar, SignUp } from '@/components'
 
 export const Header = () => {
 	return (
@@ -21,7 +22,10 @@ export const Header = () => {
 					</div>
 				</div>
 			</div>
-			<div className=''></div>
+			<div className='container relative mx-auto flex justify-between py-2'>
+				<Navbar />
+				<AddressBar />
+			</div>
 		</header>
 	)
 }

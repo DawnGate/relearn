@@ -15,7 +15,7 @@ export const UserDropdown = ({ name }: Props) => {
 		<Menu as='div' className='dropdown'>
 			<Menu.Button className='dropdown__button'>
 				<Icons.User className='icon' />
-				<Icons.ArrowDown className='icon' />
+				<Icons.ArrowDownLine className='icon' />
 			</Menu.Button>
 			<Transition
 				as={Fragment}

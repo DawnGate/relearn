@@ -7,9 +7,7 @@ import { usersRepo } from '@/helpers'
 const register = apiHandler(
 	async (req: NextRequest) => {
 		const body = await req.json()
-		console.log(body)
 		const result = await usersRepo.create(body)
-		console.log(result, 'result')
 		return setJson({
 			data: result,
 		})

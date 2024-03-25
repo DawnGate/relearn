@@ -9,7 +9,6 @@ const verifyToken = (req: NextRequest, isJwt: boolean) => {
 			throw new Error('Authorization must in header')
 		}
 		const cleanToken = token.split(' ')[1]
-		console.log(token, cleanToken)
 		const decoded = jwt.verify(cleanToken, process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET!)
 		if (typeof decoded !== 'string') {
 			const id = decoded.id as string

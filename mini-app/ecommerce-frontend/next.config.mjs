@@ -7,6 +7,22 @@ const nextConfig = {
 		})
 		return config
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'http',
+				hostname: '**.aliyuncs.com',
+				port: '',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: '**.aliyuncs.com',
+				port: '',
+				pathname: '/**',
+			},
+		],
+	},
 }
 
 export default nextConfig

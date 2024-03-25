@@ -1,4 +1,4 @@
-import { IMUser } from '@/models'
+import { IMCategory, IMUser } from '@/models'
 
 export type LoginImpl = {
 	email: string
@@ -23,5 +23,14 @@ export type LoginResponseImpl = ResponseImpl<{
 }>
 
 export type GetUserInfoImpl = ResponseImpl<Omit<IMUser, 'password'>>
+
+export type CategoryWithChild = IMCategory & {
+	child?: CategoryWithChild[]
+	_id: string
+}
+export type GetCategoryImpl = ResponseImpl<{
+	categories: CategoryWithChild[]
+	categoriesList: CategoryWithChild
+}>
 
 export type AlertStatusImpl = 'success' | 'error' | 'exclamation' | 'question' | ''

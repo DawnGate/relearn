@@ -30,6 +30,7 @@ export const ResponsiveImage = ({
 				alt={alt}
 				src={src}
 				blurDataURL={blurDataURL}
+				sizes='100'
 				{...restProps}
 			/>
 		</div>
