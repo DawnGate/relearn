@@ -1,3 +1,4 @@
+'use client'
 import { ComponentType, useEffect, useState } from 'react'
 
 export const WithHydrationFix = <T extends object>(ChildrenComponent: ComponentType<T>) => {

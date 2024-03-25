@@ -12,9 +12,9 @@ export const isPublicPath = (req: NextRequest) => {
 export const apiHandler = (
 	handler: (req: NextRequest) => Promise<ReturnType<typeof setJson>>,
 	{
-		identity,
+		identity = 'user',
 		schema,
-		isJwt,
+		isJwt = false,
 	}: {
 		identity?: string
 		schema?: Joi.Schema
@@ -23,7 +23,7 @@ export const apiHandler = (
 ) => {
 	return async (req: NextRequest) => {
 		try {
-			if (!isPublicPath(req)) {
+			if (!isPublicPath(req) && isJwt) {
 				// global middleware
 				jwtMiddleware(req, isJwt)
 				await identityMiddleware(req, identity, isJwt)

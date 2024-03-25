@@ -1,8 +1,9 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import { Icons, Modal } from '@/components'
+import { useDebounce } from '@/hooks'
 
 interface Props {
 	isShow: boolean
@@ -13,6 +14,10 @@ export const SearchModal = ({ isShow, onClose }: Props) => {
 	// state
 	const [search, setSearch] = useState('')
 
+	const debouncedSearch = useDebounce(search, 1200)
+
+	console.log(debouncedSearch)
+
 	// handler
 	const handleRemoveSearch = () => {
 		setSearch('')
@@ -21,6 +26,12 @@ export const SearchModal = ({ isShow, onClose }: Props) => {
 	const handleChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setSearch(e.target.value)
 	}
+
+	useEffect(() => {
+		if (!isShow) {
+			setSearch('')
+		}
+	}, [isShow])
 
 	// TODO: Show search data
 

@@ -10,7 +10,16 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
 				url: '/api/category',
 				method: 'GET',
 			}),
-			providesTags: [CacheTags.CATEGORY],
+			providesTags: result =>
+				result
+					? [
+							...result.data.categories.map(({ _id }) => ({
+								type: CacheTags.CATEGORY,
+								id: _id,
+							})),
+							CacheTags.CATEGORY,
+						]
+					: [CacheTags.CATEGORY],
 		}),
 	}),
 })

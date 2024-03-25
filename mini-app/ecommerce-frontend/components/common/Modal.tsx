@@ -45,7 +45,7 @@ const ModalContainer = ({ children, onClose, effect, isShow }: ModalProps) => {
 	}
 
 	const containerClassName = `
-    ${isShow ? 'opacity-100 visible' : 'opacity-0 invisible'} transition-all duration-500 fixed overflow-y-auto inset-0
+    ${isShow ? 'opacity-100 visible' : 'opacity-0 invisible'} transition-all duration-500 fixed overflow-y-auto inset-0 z-50
     `
 
 	// ? Try to pass props to children element

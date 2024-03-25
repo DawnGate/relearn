@@ -8,7 +8,7 @@ export const setJson = <T>({
 	data?: T
 }) => {
 	return {
-		code: code || 0,
+		code: code || 200,
 		message: message || 'ok',
 		data: data || null,
 	}

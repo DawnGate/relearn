@@ -1,4 +1,4 @@
-import { IMCategory, IMUser } from '@/models'
+import { IMCategory, IMProduct, IMUser } from '@/models'
 
 export type LoginImpl = {
 	email: string
@@ -31,6 +31,21 @@ export type CategoryWithChild = IMCategory & {
 export type GetCategoryImpl = ResponseImpl<{
 	categories: CategoryWithChild[]
 	categoriesList: CategoryWithChild
+}>
+
+export type GetProductsImpl = ResponseImpl<{
+	mainMaxPrice: number
+	mainMinPrice: number
+	products: Array<IMProduct & { _id: string }>
+	productsLength: number
+	pagination: {
+		currentPage: number
+		nextPage: number
+		previousPage: number
+		hasNextPage: boolean
+		hastPreviousPage: boolean
+		lastPage: number
+	}
 }>
 
 export type AlertStatusImpl = 'success' | 'error' | 'exclamation' | 'question' | ''

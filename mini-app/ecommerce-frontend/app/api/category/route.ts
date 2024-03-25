@@ -7,42 +7,37 @@ import { CategoryWithChild } from '@/types'
 import { apiHandler, setJson } from '@/helpers/api'
 import { categoryRepo } from '@/helpers'
 
-const getCategory = apiHandler(
-	async () => {
-		const result = await categoryRepo.getAll()
+const getCategory = apiHandler(async () => {
+	const result = await categoryRepo.getAll()
 
-		async function getCategoriesWithChildren() {
-			const allCategories = result
+	async function getCategoriesWithChildren() {
+		const allCategories = result
 
-			const findChildren = (cat: CategoryWithChild): CategoryWithChild => {
-				const allChildren = allCategories.filter(c => c.parent?.toString() === cat._id.toString())
+		const findChildren = (cat: CategoryWithChild): CategoryWithChild => {
+			const allChildren = allCategories.filter(c => c.parent?.toString() === cat._id.toString())
 
-				if (allChildren.length) {
-					return {
-						...cat,
-						child: allChildren.map(child => findChildren(child)),
-					}
+			if (allChildren.length) {
+				return {
+					...cat,
+					child: allChildren.map(child => findChildren(child)),
 				}
-
-				return cat
 			}
 
-			const noParentCategories = allCategories.filter(c => !c.parent)
-			return noParentCategories.map(cat => findChildren(cat))
+			return cat
 		}
 
-		const categoriesList = await getCategoriesWithChildren()
-		return setJson({
-			data: {
-				categories: result,
-				categoriesList: categoriesList[0],
-			},
-		})
-	},
-	{
-		isJwt: true,
-	},
-)
+		const noParentCategories = allCategories.filter(c => !c.parent)
+		return noParentCategories.map(cat => findChildren(cat))
+	}
+
+	const categoriesList = await getCategoriesWithChildren()
+	return setJson({
+		data: {
+			categories: result,
+			categoriesList: categoriesList[0],
+		},
+	})
+}, {})
 
 const createCategory = apiHandler(
 	async (req: NextRequest) => {

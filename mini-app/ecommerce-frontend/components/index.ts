@@ -29,6 +29,7 @@ export { AddressBar } from './AddressBar'
 // *CART
 export { Cart } from './cart/Cart'
 export { CartBadge } from './cart/CartBadge'
+export { CartDropdown } from './cart/CartDropdown'
 
 // *SVGS
 export { default as Logo } from './svgs/logo.svg'

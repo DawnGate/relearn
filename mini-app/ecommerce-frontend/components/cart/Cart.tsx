@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CartBadge } from '@/components'
+import { CartBadge, CartDropdown } from '@/components'
 
 export const Cart = () => {
 	// TODO: Cart dropdown
@@ -9,7 +9,7 @@ export const Cart = () => {
 				<CartBadge />
 			</Link>
 			<div className='hidden lg:block'>
-				<CartBadge />
+				<CartDropdown />
 			</div>
 		</>
 	)
