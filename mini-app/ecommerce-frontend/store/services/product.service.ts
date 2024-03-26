@@ -6,11 +6,11 @@ interface IProductSearch {
 	category: string
 	page: number
 	page_size: number
-	sort: string
+	sort: number
 	search: string
-	inStock: number
-	discount: number
-	price: number
+	inStock: boolean
+	discount: boolean
+	price: string // format range from XXX - XXX -> 12-1000
 }
 
 export const productApiSlice = apiSlice.injectEndpoints({
