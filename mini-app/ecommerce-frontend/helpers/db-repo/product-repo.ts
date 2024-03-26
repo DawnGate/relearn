@@ -30,6 +30,8 @@ const getAll = async (
 	const mainMaxPrice = Math.max(...pricesList)
 	const mainMinPrice = Math.min(...pricesList)
 
+	// TODO: Bug, max price and min price not return correct
+
 	return {
 		mainMaxPrice,
 		mainMinPrice,
