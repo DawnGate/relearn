@@ -48,18 +48,18 @@ const SliderSchema = new mongoose.Schema<ISlider>(
 )
 
 SliderSchema.plugin(basePlugin)
-SliderSchema.post(/^find/, function () {
-	// if (this.op === 'find') {
-	// 	docs.forEach(doc => {
-	// 		doc._id = doc._id.toString()
-	// 		doc.category_id = docs.category_id.toString()
-	// 	})
-	// }
-	// if (this.op === 'findOne' && docs) {
-	// 	docs._id = docs._id.toString()
-	// 	docs.category_id = docs.category_id.toString()
-	// }
-})
+// Can't => using lean for this purpose
+// SliderSchema.post('find', function (docs: ISlider[]) {
+// 	docs.forEach(doc => {
+// 		doc._id = doc._id.toString()
+// 		doc.category_id = doc.category_id.toString()
+// 	})
+// })
+
+// SliderSchema.post('findOne', function (docs) {
+// 	docs._id = docs._id.toString()
+// 	docs.category_id = docs.category_id.toString()
+// })
 
 export const Slider =
 	(mongoose.models.slider as Model<ISlider>) || mongoose.model<ISlider>('slider', SliderSchema)
