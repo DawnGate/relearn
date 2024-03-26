@@ -2,8 +2,21 @@
 
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { Icons, Modal } from '@/components'
+import {
+	DiscountProduct,
+	EmptySearchList,
+	Icons,
+	Modal,
+	ProductPrice,
+	ResponsiveImage,
+	ShowWrapper,
+} from '@/components'
+
 import { useDebounce } from '@/hooks'
+
+import { useGetProductsQuery } from '@/store/services'
+import Link from 'next/link'
+import { truncate } from '@/utils'
 
 interface Props {
 	isShow: boolean
@@ -16,7 +29,14 @@ export const SearchModal = ({ isShow, onClose }: Props) => {
 
 	const debouncedSearch = useDebounce(search, 1200)
 
-	console.log(debouncedSearch)
+	const { data, isSuccess, isFetching, error, isError, refetch } = useGetProductsQuery(
+		{
+			search,
+		},
+		{
+			skip: !debouncedSearch || search !== debouncedSearch,
+		},
+	)
 
 	// handler
 	const handleRemoveSearch = () => {
@@ -32,8 +52,6 @@ export const SearchModal = ({ isShow, onClose }: Props) => {
 			setSearch('')
 		}
 	}, [isShow])
-
-	// TODO: Show search data
 
 	// render
 	return (
@@ -56,7 +74,47 @@ export const SearchModal = ({ isShow, onClose }: Props) => {
 							<Icons.Close className='icon text-gray-500' />
 						</button>
 					</div>
-					<div className='overflow-y-auto lg:max-h-[500px]'>{/* Show wrapper search item */}</div>
+					<div className='overflow-y-auto lg:max-h-[500px]'>
+						<ShowWrapper
+							isError={isError}
+							error={error as any}
+							refetch={refetch}
+							isFetching={isFetching}
+							isSuccess={isSuccess}
+							dataLength={data ? data?.data.productsLength : 0}
+							emptyComponent={<EmptySearchList />}
+						>
+							<div className='space-y-3 divide-y px-4 py-3'>
+								{data?.data?.productsLength &&
+									data.data.productsLength > 0 &&
+									search.length &&
+									data.data.products.map(product => (
+										<article key={product._id} className='py-2'>
+											<Link href={`/products/${product._id}`} onClick={onClose}>
+												<ResponsiveImage
+													dimensions='w-20 h-20'
+													src={product.images[0].url}
+													alt={product.title}
+												/>
+												<span className='py-2 text-sm'>{truncate(product.title, 70)}</span>
+												<div className='flex justify-between'>
+													<div>
+														{!!product.discount && product.discount > 0 && (
+															<DiscountProduct discount={product.discount} />
+														)}
+													</div>
+													<ProductPrice
+														inStock={product?.inStock}
+														discount={product?.discount ?? 0}
+														price={product.price}
+													/>
+												</div>
+											</Link>
+										</article>
+									))}
+							</div>
+						</ShowWrapper>
+					</div>
 				</Modal.Body>
 			</Modal.Content>
 		</Modal>

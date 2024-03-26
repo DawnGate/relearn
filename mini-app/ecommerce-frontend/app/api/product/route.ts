@@ -20,7 +20,7 @@ const getAllProduct = apiHandler(async (req: NextRequest) => {
 		? {
 				title: {
 					$regex: search,
-					$option: 'i',
+					$options: 'i',
 				},
 			}
 		: {}
@@ -107,6 +107,7 @@ const createProduct = apiHandler(
 			specification: Joi.array().required(),
 			inStock: Joi.number(),
 			description: Joi.string().allow(''),
+			discount: Joi.number(),
 			sizes: Joi.array(),
 			colors: Joi.array(),
 			category_levels: Joi.object(),
