@@ -1,4 +1,4 @@
-const User = require("../modals/user");
+const User = require("../models/user");
 
 class UserRepository {
   async createUser(user) {
@@ -9,6 +9,17 @@ class UserRepository {
   async getUserByUsername(username) {
     const foundUser = await User.findOne({ username });
     return foundUser;
+  }
+
+  async getUserById(userId) {
+    const foundUser = await User.findById(userId);
+    return foundUser;
+  }
+
+  async deleteTestUsers() {
+    return await User.delete({
+      username: /^test/,
+    });
   }
 }
 
