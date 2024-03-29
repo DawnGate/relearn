@@ -23,7 +23,7 @@ class AuthController {
     const result = await this.authService.register(user);
 
     if (result.success) {
-      res.json({ user: result.user });
+      res.json(result.user);
     } else {
       res.status(400).json({ message: result.message });
     }

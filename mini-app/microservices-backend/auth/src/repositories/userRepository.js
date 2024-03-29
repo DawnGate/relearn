@@ -17,7 +17,7 @@ class UserRepository {
   }
 
   async deleteTestUsers() {
-    return await User.delete({
+    return await User.deleteMany({
       username: /^test/,
     });
   }
