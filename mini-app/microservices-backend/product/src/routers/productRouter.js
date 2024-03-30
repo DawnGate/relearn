@@ -13,5 +13,12 @@ router.get("/", authMiddleware, (req, res) =>
 router.post("/", authMiddleware, (req, res) =>
   productController.createProduct(req, res)
 );
+router.post("/buy", authMiddleware, (req, res) =>
+  productController.createOrder(req, res)
+);
+
+router.get("/order-status", authMiddleware, (req, res) =>
+  productController.getOrderStatus(req, res)
+);
 
 module.exports = router;

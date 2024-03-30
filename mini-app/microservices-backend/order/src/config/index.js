@@ -1,13 +1,10 @@
-require("dotenv").config();
-
 const config = {
-  mongoOrderUri: process.env.MONGO_ORDER_URI,
-  mongoAuthUri: process.env.MONGO_AUTH_URI,
-  mongoProductUri: process.env.MONGO_PRODUCT_URI,
+  mongoOrderUri: process.env.MONGODB_ORDER_URI,
   jwtSecret: process.env.JWT_SECRET,
+  rabbitMQUri: process.env.RABBIT_MQ_URI,
+  productQueue: "products",
+  orderQueue: "orders",
   port: 3002,
-  rabbitMQUri: "amqp://localhost",
-  rabbitMQQueue: "orders",
 };
 
 module.exports = config;

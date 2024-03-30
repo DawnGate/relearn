@@ -49,6 +49,7 @@ class ProductController {
         status: "pending",
         products,
         username: req.user.username,
+        orderId,
       };
       this.ordersMap.set(orderId, newOrder);
 
@@ -84,6 +85,20 @@ class ProductController {
         message: `Server error ${err.message}`,
       });
     }
+  }
+
+  async getOrderStatus(req, res) {
+    const { orderId } = req.params;
+
+    const order = this.ordersMap.get(orderId);
+
+    if (!order) {
+      res.status(400).json({
+        message: "Order not found",
+      });
+    }
+
+    return res.status(200).json(order);
   }
 }
 

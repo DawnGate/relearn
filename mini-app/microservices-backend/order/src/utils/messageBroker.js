@@ -19,6 +19,7 @@ class MessageBroker {
         }
       }, 10000)
     );
+
     await waitConnectWithRabbitMQ;
   }
 

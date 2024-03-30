@@ -14,6 +14,11 @@ const OrderSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
