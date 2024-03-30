@@ -42,8 +42,8 @@ class App {
   }
 
   start() {
-    this.server = this.app.listen(3000, () => {
-      console.log("server start on port 3000");
+    this.server = this.app.listen(config.port, () => {
+      console.log(`server start on port ${config.port} `);
     });
   }
 
