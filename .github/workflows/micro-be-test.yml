@@ -16,7 +16,6 @@ jobs:
           echo "SALT=${{ secrets.SALT }}" >> auth/.env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> product/.env
           echo "MONGO_PRODUCT_URI=${{ secrets.MONGO_PRODUCT_URI }}" >> product/.env
-          echo "MONGO_AUTH_URI=${{ secrets.MONGO_AUTH_URI }}" >> product/.env
         working-directory: ./mini-app/microservices-backend
       - name: Install dependencies
         run: |
