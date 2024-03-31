@@ -34,5 +34,14 @@ With
 
 This is a sub directory -> checkout to new branch, and put the repo to main directory
 
--> ex: ci/miniapp-micro-be
-just running for test ci ( not setup docker)
+-> ex: ci/miniapp-micro-be just running for test ci ( not setup docker)
+
+setting ci secrets repository params lik in workflows/test.yml
+
+in server I using mongo serverless server
+
+MONGO_AUTH_URI=mongodb+srv://username:userPassword@cluster-uri/micro-be-auth
+
+MONGO_PRODUCT_URI=mongodb+srv://username:userPassword@cluster-uri/micro-be-product
+
+I also setup all connection for 6 hours -> you need turn this connection when push or pull request to server
