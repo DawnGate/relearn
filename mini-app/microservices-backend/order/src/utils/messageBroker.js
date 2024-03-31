@@ -13,6 +13,7 @@ class MessageBroker {
           const connection = await amqp.connect(rabbitMqUri);
           this.channel = await connection.createChannel();
           await this.channel.assertQueue(exchangeQueue);
+          resolve();
           console.log("RabbitMQ connected");
         } catch (err) {
           throw new Error("Connect error, rabbitMQ", err.message);
@@ -39,9 +40,11 @@ class MessageBroker {
     if (!this.channel) {
       throw new Error("No rabbitmq available");
     }
+    console.log(queue);
 
     try {
       await this.channel.consume(queue, (message) => {
+        console.log(message);
         const content = message.content.toString();
         const parsedContent = JSON.parse(content);
         callback(parsedContent);

@@ -28,6 +28,7 @@ class ProductService {
 
   async findProductByFilter(filter) {
     const products = await this.productRepository.findWithFilter(filter);
+    return products;
   }
 }
 

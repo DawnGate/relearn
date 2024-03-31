@@ -38,6 +38,8 @@ class ProductController {
     try {
       const { ids } = req.body;
 
+      console.log("receive ids", ids);
+
       const products = await this.productService.findProductByFilter({
         _id: {
           $in: ids,
@@ -45,18 +47,28 @@ class ProductController {
       });
 
       const orderId = uuid.v4();
+      console.log(products);
+      const totalOrderPrice = products.reduce(
+        (sum, prod) => sum + prod.price,
+        0
+      );
+
       const newOrder = {
         status: "pending",
-        products,
-        username: req.user.username,
+        products: products.map((prod) => prod._id),
+        createdBy: req.user.id,
         orderId,
+        totalPrice: totalOrderPrice,
       };
+
+      console.log("create new order", newOrder);
       this.ordersMap.set(orderId, newOrder);
 
       this.messageBroker.publishMessage(config.productQueue, newOrder);
 
       this.messageBroker.consumeMessage(config.orderQueue, (updateOrder) => {
         const { orderId } = updateOrder;
+        console.log("receive back order", updateOrder);
 
         const olderInController = this.ordersMap.get(orderId);
         if (olderInController) {

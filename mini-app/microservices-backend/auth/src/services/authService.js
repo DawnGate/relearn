@@ -34,6 +34,7 @@ class AuthService {
     const token = jsonwebtoken.sign(
       {
         id: user._id,
+        username: user.username,
       },
       config.jwtSecret
     );

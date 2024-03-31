@@ -19,13 +19,14 @@ const OrderSchema = new mongoose.Schema(
       ref: "users",
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+    orderId: {
+      type: String,
+      required: true,
     },
   },
   {
     collection: "orders",
+    timestamps: true,
   }
 );
 
