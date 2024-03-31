@@ -29,3 +29,10 @@ With
 1. Why model user point to collections users, and order model specific collection property
 
 - Answer: When not specific -> mongoose will create the collection base on the name in scheme, ex: Demo -> demos, if has collection options will the name of the collection will create in db
+
+# Github ci/cd
+
+This is a sub directory -> checkout to new branch, and put the repo to main directory
+
+-> ex: ci/miniapp-micro-be
+just running for test ci ( not setup docker)

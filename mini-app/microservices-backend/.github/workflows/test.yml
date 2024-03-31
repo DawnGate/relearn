@@ -1,6 +1,6 @@
 name: Test_validate
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test:
