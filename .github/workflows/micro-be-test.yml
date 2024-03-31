@@ -1,0 +1,45 @@
+name: Test_validate
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Config .env
+        run: |
+          echo "MONGO_AUTH_URI=${{ secrets.MONGO_AUTH_URI }}" >> auth/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> auth/.env
+          echo "SALT=${{ secrets.SALT }}" >> auth/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> product/.env
+          echo "MONGO_PRODUCT_URI=${{ secrets.MONGO_PRODUCT_URI }}" >> product/.env
+          echo "MONGO_AUTH_URI=${{ secrets.MONGO_AUTH_URI }}" >> product/.env
+        working-directory: ./mini-app/microservices-backend
+      - name: Install dependencies
+        run: |
+          cd auth
+          npm i
+          cd ..
+          cd product
+          npm i
+          cd ..
+          npm i
+        working-directory: ./mini-app/microservices-backend
+      - name: Run test for product
+        run: npm run test
+        working-directory: ./mini-app/microservices-backend
+
+      # TODO: This setting when you need loose connetion between product and auth
+      #- name: Run tests for auth
+      #  run : |
+      #    cd auth
+      #    npm test
+      # - name: Run tests for product
+      #   run: |
+      #     cd auth &&
+      #     npm start &
+      #     cd product
+      #     npm test
