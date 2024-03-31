@@ -1,0 +1,85 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - ecommerce
+    volumes:
+      - ./.docker-conf/mongo/db:/data/db
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker-conf/rabbitmq/log/:/var/log/rabbitmq/
+    networks:
+      - ecommerce
+
+  api-gateway:
+    build: ./api-gateway
+    depends_on:
+      - mongo
+    ports:
+      - 3003:3003
+    environment:
+      - ENV=3003
+      - AUTH_URL=http://auth:3000
+      - PRODUCT_URL=http://product:3001
+      - ORDER_URL=http://order:3002
+    networks:
+      - ecommerce
+
+  auth:
+    build: ./auth
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    env_file:
+      - ./auth/.env
+    environment:
+      - MONGO_AUTH_URI=mongodb://mongo:27017/micro-be-auth
+    networks:
+      - ecommerce
+
+  product:
+    build: ./product
+    ports:
+      - 3001:3001
+    depends_on:
+      - rabbitmq
+      - mongo
+    env_file:
+      - ./product/.env
+    environment:
+      - MONGO_PRODUCT_URI=mongodb://mongo:27017/micro-be-product
+      - RABBIT_MQ_URI=amqp://rabbitmq:5672
+    networks:
+      - ecommerce
+
+  order:
+    build: ./order
+    depends_on:
+      - rabbitmq
+      - mongo
+    ports:
+      - 3002:3002
+    env_file:
+      - ./order/.env
+    environment:
+      - MONGO_ORDER_URI=mongodb://mongo:27017/micro-be-order
+      - RABBIT_MQ_URI=amqp://rabbitmq:5672
+    networks:
+      - ecommerce
+
+networks:
+  ecommerce:

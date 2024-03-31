@@ -7,6 +7,7 @@ const productRouter = require("./routers/productRouter");
 
 class App {
   constructor() {
+    console.log(config);
     this.app = express();
     this.setMiddlewares();
     this.setRoutes();

@@ -45,3 +45,15 @@ MONGO_AUTH_URI=mongodb+srv://username:userPassword@cluster-uri/micro-be-auth
 MONGO_PRODUCT_URI=mongodb+srv://username:userPassword@cluster-uri/micro-be-product
 
 I also setup all connection for 6 hours -> you need turn this connection when push or pull request to server
+
+# Docker
+
+- clean all:
+  docker stop $(docker ps -qa) && docker system prune -af --volumes
+
+- clean after build
+  docker-compose rm -f
+  docker-compose up --build -d
+
+- restart
+  docker-compose down && docker-compose build --no-cache && docker-compose up -d

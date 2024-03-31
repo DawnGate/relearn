@@ -6,8 +6,9 @@ const config = require("./config");
 
 class App {
   constructor() {
+    console.log(config);
+
     this.app = express();
-    this.connectDB();
     this.orderController = null;
   }
 
@@ -21,7 +22,8 @@ class App {
     console.log("disconnected db");
   }
 
-  start() {
+  async start() {
+    await this.connectDB();
     this.orderController = new OrderController();
   }
 }

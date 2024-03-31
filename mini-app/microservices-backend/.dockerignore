@@ -6,3 +6,5 @@ Dockerfile
 README.md
 
 .env.example
+
+.docker-conf
