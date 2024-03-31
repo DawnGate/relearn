@@ -17,9 +17,7 @@ class ProductController {
 
     try {
       const product = await this.productService.createProduct(body);
-      res.status(201).json({
-        data: product,
-      });
+      res.status(201).json(product);
     } catch (error) {
       res.status(400).json({
         message: error,
@@ -38,8 +36,6 @@ class ProductController {
     try {
       const { ids } = req.body;
 
-      console.log("receive ids", ids);
-
       const products = await this.productService.findProductByFilter({
         _id: {
           $in: ids,
@@ -47,7 +43,6 @@ class ProductController {
       });
 
       const orderId = uuid.v4();
-      console.log(products);
       const totalOrderPrice = products.reduce(
         (sum, prod) => sum + prod.price,
         0
@@ -110,7 +105,11 @@ class ProductController {
       });
     }
 
-    return res.status(200).json(order);
+    res.status(200).json(order);
+  }
+
+  async deleteTestProducts() {
+    await this.productService.deleteTestProducts();
   }
 }
 

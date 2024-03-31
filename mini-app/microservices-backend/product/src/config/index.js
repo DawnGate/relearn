@@ -1,3 +1,8 @@
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../../.env"),
+});
+
 const config = {
   mongoProductUri: process.env.MONGO_PRODUCT_URI,
   jwtSecret: process.env.JWT_SECRET,

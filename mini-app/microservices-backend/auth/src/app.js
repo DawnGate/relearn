@@ -9,9 +9,9 @@ const AuthController = require("./controller/authController");
 class App {
   constructor() {
     this.app = express();
+
     this.authController = new AuthController();
 
-    this.connectDB();
     this.setMiddleware();
     this.setRouters();
   }
@@ -41,14 +41,15 @@ class App {
     );
   }
 
-  start() {
+  async start() {
+    await this.connectDB();
     this.server = this.app.listen(config.port, () => {
       console.log(`server start on port ${config.port} `);
     });
   }
 
   async stop() {
-    this.disconnectDB();
+    await this.disconnectDB();
     this.server.close();
     console.log("Server stopped");
   }

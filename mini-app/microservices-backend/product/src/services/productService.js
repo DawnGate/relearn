@@ -30,6 +30,10 @@ class ProductService {
     const products = await this.productRepository.findWithFilter(filter);
     return products;
   }
+
+  async deleteTestProducts() {
+    await this.productRepository.deleteTestProducts();
+  }
 }
 
 module.exports = ProductService;

@@ -3,9 +3,6 @@ const chaiHttp = require("chai-http");
 
 const App = require("../app");
 
-const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
-
 chai.use(chaiHttp);
 const { expect } = chai;
 
@@ -14,15 +11,12 @@ describe("User authentication", () => {
 
   before(async () => {
     app = new App();
-    // ! Ensure that db already connect
-    await app.connectDB();
-    app.start();
+    await app.start();
   });
 
   after(async () => {
     await app.authController.authService.deleteTestUsers();
-    await app.disconnectDB();
-    app.stop();
+    await app.stop();
   });
 
   describe("POST /register", () => {

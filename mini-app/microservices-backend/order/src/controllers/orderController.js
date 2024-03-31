@@ -10,7 +10,7 @@ class OrderController {
     this.messageBroker
       .connect(config.orderQueue, config.rabbitMQUri)
       .then((res) => {
-        console.log("success connect");
+        console.log("success connect rabbitmq");
         this.subscribeChannel();
       });
   }

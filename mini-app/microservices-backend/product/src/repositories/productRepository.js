@@ -28,6 +28,12 @@ class ProductRepository {
     const products = await Product.find(filter);
     return products;
   }
+
+  async deleteTestProducts() {
+    await Product.deleteMany({
+      name: /^test/,
+    });
+  }
 }
 
 module.exports = ProductRepository;

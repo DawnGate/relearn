@@ -7,6 +7,11 @@ With
 3. Product
 4. Order
 
+# Config
+
+- mongodb with docker for localhost running: pull docker image, setup name "mongo-microservices-shop", setup 27017/27017
+- rabbitmq: docker for localhost running: pull docker image, setup port 15672:15672, 5672:5672, password default guest/guest
+
 # This flow
 
 1. gate way will forward api to other containers
