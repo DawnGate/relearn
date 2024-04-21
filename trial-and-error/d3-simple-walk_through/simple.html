@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="D3.js work through" />
+    <title>D3.js work through</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <style>
+      .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 12px;
+        font: 15px sans-serif;
+        background: lightsteelblue;
+        border-radius: 11px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>D3.js work through</h1>
+
+    <h2>Getting started</h2>
+    <p>
+      D3.js also known as D3, Data-Driven Document, is a javascript library for
+      producing dynamic and interactive data visualizations in web browser. It
+      makes use of Scalable Vector Graphic(SVG), HTML5, CSS.
+    </p>
+
+    <h2>Selections</h2>
+
+    <p>D3.js provide us 2 ways for select: d3.select() and d2.selectAll()</p>
+
+    <p class="p_select">D3 Select -> change color to blue</p>
+
+    <p class="p_select">
+      D3 Select -> Simple select only work for 1 element, the second element
+      will not apply
+    </p>
+
+    <p class="p_select_all">
+      D3 select all -> Select all will change all have same select rule
+    </p>
+    <p class="p_select_all">
+      D3 select all -> Select all will change all have same select rule
+    </p>
+    <p class="p_select_all">
+      D3 select all -> Select all will change all have same select rule
+    </p>
+    <p class="p_select_all">
+      D3 select all -> Select all will change all have same select rule
+    </p>
+
+    <p>
+      D3 providing some methods after select: attr, style, property, text, html,
+      append, insert, remove
+    </p>
+
+    <h2>Data driven</h2>
+    <p>
+      D3.js is data driven mean it support multiple different data type: CSV,
+      XML, TSV, JSON. It's working with local file or through api
+    </p>
+
+    <p>
+      Data join: let us join the data with selected element (.data() method )
+      example:
+    </p>
+
+    <p>Example for fruits from array: Apple, Orange, Mango</p>
+    <p id="p_data_join"></p>
+
+    <p>
+      Because we only have one #p_data_join, so with select and data method will
+      make show 1 fruit. D3 support the join method for append, remove or
+      reorders element for match with the data
+    </p>
+    <div id="div_data_join_2">
+      <p>This p can occur or not, It still work</p>
+      <p>This p can occur or not, It still work</p>
+      <p>This p can occur or not, It still work</p>
+      <p>This p can occur or not, It still work</p>
+      <p>This p can occur or not, It still work</p>
+    </div>
+
+    <p>Loading data from server with d3, example with json from githubraw</p>
+    <div id="div_data_loading"></div>
+
+    <h2>Scales in d3</h2>
+    <p>
+      Scale is re-range the value from current range to another range with the
+      same relevant spacing
+    </p>
+
+    <p>Scale working with "domain" and "range"</p>
+    <p>
+      Example: d3.scaleLinear().domain([10, 500]).range([100, 2000]). This
+      example show that with limit from 10 => 500. D3, map with the limit 100 =>
+      2000 to show in pixels.
+    </p>
+
+    <p>
+      D3 have various form of scale, it depend of what data you will want to
+      show
+    </p>
+
+    <h2>Create bar chart</h2>
+
+    <p>The first bar chart with data of state in Nigeria</p>
+
+    <svg id="svg_bar_chart"></svg>
+
+    <p>Create axis component => For human readable reference marks</p>
+
+    <svg id="svg_linear_demo"></svg>
+
+    <p>D3 coming with margin convention</p>
+
+    <svg id="svg_margin_convention"></svg>
+
+    <h2>Create a world map</h2>
+
+    <svg id="svg_map"></svg>
+
+    <script src="./simple.js" />
+  </body>
+</html>
