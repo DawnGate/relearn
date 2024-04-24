@@ -43,7 +43,7 @@ export const AddStoreForm = () => {
     try {
       setIsLoading(true);
       const response = await axios.post("/api/stores", values);
-      toast.success("Add new store");
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error("Something wrong");
     } finally {
@@ -81,7 +81,11 @@ export const AddStoreForm = () => {
             )}
           />
           <div className="pt-6 space-x-2 flex items-center justify-end">
-            <Button variant="outline" onClick={storeModal.onClose}>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={storeModal.onClose}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>

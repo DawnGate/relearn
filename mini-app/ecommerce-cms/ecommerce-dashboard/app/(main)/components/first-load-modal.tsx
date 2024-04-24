@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useModal } from "@/hooks/use-modal";
 
-const Page = () => {
+export const FirstLoadModal = () => {
   const onOpen = useModal((state) => state.onOpen);
   const isOpen = useModal((state) => state.isOpen);
 
@@ -15,5 +15,3 @@ const Page = () => {
 
   return null;
 };
-
-export default Page;
