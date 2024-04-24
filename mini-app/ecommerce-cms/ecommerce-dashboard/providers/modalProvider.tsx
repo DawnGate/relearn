@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { CreateStoreForm } from "@/components/createStoreModal";
+import { AddStoreForm } from "@/components/addStoreModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -15,7 +15,7 @@ export const ModalProvider = () => {
 
   return (
     <>
-      <CreateStoreForm />
+      <AddStoreForm />
     </>
   );
 };
