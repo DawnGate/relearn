@@ -28,7 +28,7 @@ const StorePage = async ({
     redirect("/");
   }
 
-  return <div>Store page: {storeId}</div>;
+  return <div>Store page: {store.name}</div>;
 };
 
 export default StorePage;
