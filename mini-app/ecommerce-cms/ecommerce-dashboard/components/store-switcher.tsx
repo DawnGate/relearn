@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import {
   Popover,
@@ -36,6 +36,7 @@ interface Props {
 
 export const StoreSwitcher = ({ items }: Props) => {
   const params = useParams();
+  const router = useRouter();
 
   const storeModal = useModal();
 
@@ -50,22 +51,28 @@ export const StoreSwitcher = ({ items }: Props) => {
 
   const [open, setOpen] = useState(false);
 
+  const onSelectItem = (value: string) => {
+    setOpen(false);
+    router.push(`/${value}`);
+  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
+          size="sm"
           role="combobox"
           aria-expanded={open}
           aria-label="Select a store"
           className="w-[200px] justify-between"
         >
           <StoreIcon className="h-5 w-5 mr-2" />
-          {currentStore?.label}
+          <p className="truncate">{currentStore?.label}</p>
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search store..." />
@@ -75,13 +82,11 @@ export const StoreSwitcher = ({ items }: Props) => {
                 <CommandItem
                   key={item.value}
                   value={item.value}
-                  onSelect={(currentValue) => {
-                    setOpen(false);
-                  }}
+                  onSelect={onSelectItem}
                   className="text-sm"
                 >
                   <StoreIcon className="mr-2 h-4 w-4" />
-                  {item.label}
+                  <p className="truncate">{item.label}</p>
                   <Check
                     className={cn(
                       "ml-2 h-4 w-4",
