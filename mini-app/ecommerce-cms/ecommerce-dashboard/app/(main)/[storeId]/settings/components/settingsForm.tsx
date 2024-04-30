@@ -82,7 +82,9 @@ export const SettingsForm = ({ initData }: Props) => {
       toast.success("Store deleted");
       router.push("/");
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.error(
+        "Something went wrong. Make sure you remove all products and categories with this store first"
+      );
     } finally {
       setIsLoading(false);
     }
