@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TrashIcon } from "lucide-react";
 
-import { Billboard } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
 
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
@@ -31,20 +31,27 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import { ImageUpload } from "@/components/imageUpload";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
-  label: z.string().min(3, {
-    message: "Billboard label must be at least 3 characters",
+  name: z.string().min(3, {
+    message: "Category name must be at least 3 characters",
   }),
-  imageUrl: z.string().min(1),
+  billboardId: z.string(),
 });
 
 interface Props {
-  initData: Billboard | null;
+  initData: Category | null;
+  billboards: Billboard[];
 }
 
-export const BillboardsForm = ({ initData }: Props) => {
+export const CategoryForm = ({ initData, billboards }: Props) => {
   const router = useRouter();
   const params = useParams();
 
@@ -56,15 +63,15 @@ export const BillboardsForm = ({ initData }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initData || {
-      label: "",
-      imageUrl: "",
+      name: "",
+      billboardId: "",
     },
   });
 
-  const title = initData ? "Edit billboard" : "Create billboard";
-  const description = initData ? "Edit a billboard" : "Add a new billboard";
-  const toastMessage = initData ? "Billboard updated" : "Billboard created";
-  const action = initData ? "Save changes" : "Create new billboard";
+  const title = initData ? "Edit category" : "Create category";
+  const description = initData ? "Edit a category" : "Add a new category";
+  const toastMessage = initData ? "Category updated" : "Category created";
+  const action = initData ? "Save changes" : "Create new category";
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -72,20 +79,20 @@ export const BillboardsForm = ({ initData }: Props) => {
 
       if (initData) {
         await axios.patch(
-          `/api/stores/${storeId}/billboards/${initData.id}`,
+          `/api/stores/${storeId}/categories/${initData.id}`,
           values
         );
         toast.success(toastMessage);
         router.refresh();
       } else {
         const res = await axios.post(
-          `/api/stores/${storeId}/billboards`,
+          `/api/stores/${storeId}/categories`,
           values
         );
 
         if (res) {
           toast.success(toastMessage);
-          router.push(`/${storeId}/billboards/${res.data.id}`);
+          router.push(`/${storeId}/categories/${res.data.id}`);
         }
       }
     } catch (error) {
@@ -99,12 +106,12 @@ export const BillboardsForm = ({ initData }: Props) => {
     if (!initData) return;
     try {
       setIsLoading(true);
-      await axios.delete(`/api/stores/${storeId}/billboards/${initData.id}`);
-      toast.success("Billboard deleted");
-      window.location.assign(`/${storeId}/billboards`);
+      await axios.delete(`/api/stores/${storeId}/categories/${initData.id}`);
+      toast.success("Category deleted");
+      window.location.assign(`/${storeId}/categories`);
     } catch (error) {
       toast.error(
-        "Something went wrong. Make sure you remove all categories with this billboard first."
+        "Something went wrong. Make sure you remove all products with this category first."
       );
     } finally {
       setIsLoading(false);
@@ -142,42 +149,48 @@ export const BillboardsForm = ({ initData }: Props) => {
           className="space-y-8 w-full"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    disabled={isLoading}
-                    value={field.value ? [field.value] : []}
-                    onChange={(url) => {
-                      field.onChange(url);
-                    }}
-                    onRemove={() => {
-                      field.onChange("");
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Billboard label"
+                      placeholder="Category name"
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="billboardId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billboard</FormLabel>
+
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a billboard" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

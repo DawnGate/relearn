@@ -1,8 +1,13 @@
-import { auth } from "@clerk/nextjs/server";
-import { BillboardClient } from "./components/billboardClient";
+import { format } from "date-fns";
+
+import { redirect } from "next/navigation";
 
 import prismaDb from "@/lib/prismadb";
-import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+
+import { BillboardClient } from "./components/billboardClient";
+
+import { BillboardTable } from "./components/columns";
 
 interface Props {
   params: {
@@ -39,9 +44,15 @@ const BillboardPage = async ({ params }: Props) => {
     },
   });
 
+  const formattedData: BillboardTable[] = billboards.map((billboard) => ({
+    label: billboard.label,
+    createdAt: format(billboard.createdAt, "MMMM do, yyyy"),
+    id: billboard.id,
+  }));
+
   return (
     <div className="pt-6 p-8 space-y-4">
-      <BillboardClient billboards={billboards} />
+      <BillboardClient billboards={formattedData} />
     </div>
   );
 };

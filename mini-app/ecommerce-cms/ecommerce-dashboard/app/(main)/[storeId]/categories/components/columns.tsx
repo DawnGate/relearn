@@ -22,13 +22,14 @@ import axios from "axios";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type BillboardTable = {
+export type CategoryTable = {
   id: string;
-  label: string;
+  name: string;
+  billboardLabel: string;
   createdAt: string;
 };
 
-const ActionCell = ({ data }: { data: BillboardTable }) => {
+const ActionCell = ({ data }: { data: CategoryTable }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -46,15 +47,15 @@ const ActionCell = ({ data }: { data: BillboardTable }) => {
     setOpen(true);
   };
 
-  const onDeleteBillboard = async () => {
+  const onDeleteCategory = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/stores/${storeId}/billboards/${data.id}`);
-      toast.success("Billboard deleted");
+      await axios.delete(`/api/stores/${storeId}/categories/${data.id}`);
+      toast.success("Category deleted");
       router.refresh();
     } catch (error) {
       toast.error(
-        "Something went wrong. Make sure you remove all categories with this billboard first."
+        "Something went wrong. Make sure you remove all products with this category first."
       );
     } finally {
       setLoading(false);
@@ -63,7 +64,7 @@ const ActionCell = ({ data }: { data: BillboardTable }) => {
   };
 
   const onEdit = () => {
-    router.push(`/${storeId}/billboards/${data.id}`);
+    router.push(`/${storeId}/categories/${data.id}`);
   };
 
   return (
@@ -74,7 +75,7 @@ const ActionCell = ({ data }: { data: BillboardTable }) => {
         onClose={() => {
           setOpen(false);
         }}
-        onConfirm={onDeleteBillboard}
+        onConfirm={onDeleteCategory}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -103,10 +104,14 @@ const ActionCell = ({ data }: { data: BillboardTable }) => {
   );
 };
 
-export const columns: ColumnDef<BillboardTable>[] = [
+export const columns: ColumnDef<CategoryTable>[] = [
   {
-    accessorKey: "label",
-    header: "Label",
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "billboardLabel",
+    header: "Billboard",
   },
   {
     accessorKey: "createdAt",
