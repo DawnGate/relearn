@@ -101,7 +101,7 @@ export const BillboardsForm = ({ initData }: Props) => {
       setIsLoading(true);
       await axios.delete(`/api/stores/${storeId}/billboards/${initData.id}`);
       toast.success("Store deleted");
-      router.push("/");
+      router.push(`/stores/${storeId}/billboards`);
     } catch (error) {
       toast.error(
         "Something went wrong. Make sure you remove all categories with this billboard first."

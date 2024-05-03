@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { BillboardClient } from "./components/BillboardClient";
+import { BillboardClient } from "./components/billboardClient";
 
 import prismaDb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
@@ -33,6 +33,9 @@ const BillboardPage = async ({ params }: Props) => {
   const billboards = await prismaDb.billboard.findMany({
     where: {
       storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 

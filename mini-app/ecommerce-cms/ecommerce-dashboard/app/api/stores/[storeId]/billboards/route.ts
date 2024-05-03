@@ -61,4 +61,31 @@ const POST = async (
   }
 };
 
-export { POST };
+const GET = async (
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: {
+      storeId: string;
+    };
+  }
+) => {
+  try {
+    const billboards = await prismaDb.billboard.findMany({
+      where: {
+        storeId: params.storeId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return NextResponse.json(billboards);
+  } catch (error) {
+    console.log("[BILLBOARD_GET]", error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};
+
+export { POST, GET };
