@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TrashIcon } from "lucide-react";
 
-import { Billboard, Category } from "@prisma/client";
+import { Size } from "@prisma/client";
 
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
@@ -31,27 +31,18 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Category name must be at least 3 characters",
+    message: "Size label must be at least 3 characters",
   }),
-  billboardId: z.string(),
+  value: z.string().min(1),
 });
 
 interface Props {
-  initData: Category | null;
-  billboards: Billboard[];
+  initData: Size | null;
 }
 
-export const CategoryForm = ({ initData, billboards }: Props) => {
+export const SizesForm = ({ initData }: Props) => {
   const router = useRouter();
   const params = useParams();
 
@@ -64,14 +55,14 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: initData || {
       name: "",
-      billboardId: "",
+      value: "",
     },
   });
 
-  const title = initData ? "Edit category" : "Create category";
-  const description = initData ? "Edit a category" : "Add a new category";
-  const toastMessage = initData ? "Category updated" : "Category created";
-  const action = initData ? "Save changes" : "Create new category";
+  const title = initData ? "Edit size" : "Create size";
+  const description = initData ? "Edit a size" : "Add a new size";
+  const toastMessage = initData ? "Size updated" : "Size created";
+  const action = initData ? "Save changes" : "Create new size";
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -79,15 +70,14 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
 
       if (initData) {
         await axios.patch(
-          `/api/stores/${storeId}/categories/${initData.id}`,
+          `/api/stores/${storeId}/sizes/${initData.id}`,
           values
         );
       } else {
-        await axios.post(`/api/stores/${storeId}/categories`, values);
+        await axios.post(`/api/stores/${storeId}/sizes`, values);
       }
-
       toast.success(toastMessage);
-      window.location.assign(`/${storeId}/categories`);
+      window.location.assign(`/${storeId}/sizes`);
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {
@@ -99,12 +89,12 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
     if (!initData) return;
     try {
       setIsLoading(true);
-      await axios.delete(`/api/stores/${storeId}/categories/${initData.id}`);
-      toast.success("Category deleted");
-      window.location.assign(`/${storeId}/categories`);
+      await axios.delete(`/api/stores/${storeId}/sizes/${initData.id}`);
+      toast.success("Size deleted");
+      window.location.assign(`/${storeId}/sizes`);
     } catch (error) {
       toast.error(
-        "Something went wrong. Make sure you remove all products with this category first."
+        "Something went wrong. Make sure you remove all products with this size first."
       );
     } finally {
       setIsLoading(false);
@@ -152,7 +142,7 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Category name"
+                      placeholder="Size label"
                       {...field}
                     />
                   </FormControl>
@@ -162,28 +152,17 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
             />
             <FormField
               control={form.control}
-              name="billboardId"
+              name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Billboard</FormLabel>
-
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a billboard" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {billboards.map((billboard) => (
-                        <SelectItem key={billboard.id} value={billboard.id}>
-                          {billboard.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FormLabel>Value</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Size value"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

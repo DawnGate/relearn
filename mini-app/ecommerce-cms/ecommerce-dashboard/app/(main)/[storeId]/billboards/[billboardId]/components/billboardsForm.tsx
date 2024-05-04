@@ -75,19 +75,11 @@ export const BillboardsForm = ({ initData }: Props) => {
           `/api/stores/${storeId}/billboards/${initData.id}`,
           values
         );
-        toast.success(toastMessage);
-        router.refresh();
       } else {
-        const res = await axios.post(
-          `/api/stores/${storeId}/billboards`,
-          values
-        );
-
-        if (res) {
-          toast.success(toastMessage);
-          router.push(`/${storeId}/billboards/${res.data.id}`);
-        }
+        await axios.post(`/api/stores/${storeId}/billboards`, values);
       }
+      window.location.assign(`/${storeId}/billboards`);
+      toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {

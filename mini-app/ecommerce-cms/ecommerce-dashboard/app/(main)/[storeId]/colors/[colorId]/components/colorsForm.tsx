@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TrashIcon } from "lucide-react";
 
-import { Billboard, Category } from "@prisma/client";
+import { Color } from "@prisma/client";
 
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
@@ -31,27 +31,21 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 const formSchema = z.object({
   name: z.string().min(3, {
-    message: "Category name must be at least 3 characters",
+    message: "Color label must be at least 3 characters",
   }),
-  billboardId: z.string(),
+  value: z
+    .string()
+    .min(4)
+    .regex(/^#(\d|\w)+/, "Value must be a valid hex color"),
 });
 
 interface Props {
-  initData: Category | null;
-  billboards: Billboard[];
+  initData: Color | null;
 }
 
-export const CategoryForm = ({ initData, billboards }: Props) => {
+export const ColorsForm = ({ initData }: Props) => {
   const router = useRouter();
   const params = useParams();
 
@@ -64,14 +58,14 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: initData || {
       name: "",
-      billboardId: "",
+      value: "",
     },
   });
 
-  const title = initData ? "Edit category" : "Create category";
-  const description = initData ? "Edit a category" : "Add a new category";
-  const toastMessage = initData ? "Category updated" : "Category created";
-  const action = initData ? "Save changes" : "Create new category";
+  const title = initData ? "Edit color" : "Create color";
+  const description = initData ? "Edit a color" : "Add a new color";
+  const toastMessage = initData ? "Color updated" : "Color created";
+  const action = initData ? "Save changes" : "Create new color";
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -79,15 +73,14 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
 
       if (initData) {
         await axios.patch(
-          `/api/stores/${storeId}/categories/${initData.id}`,
+          `/api/stores/${storeId}/colors/${initData.id}`,
           values
         );
       } else {
-        await axios.post(`/api/stores/${storeId}/categories`, values);
+        await axios.post(`/api/stores/${storeId}/colors`, values);
       }
-
       toast.success(toastMessage);
-      window.location.assign(`/${storeId}/categories`);
+      window.location.assign(`/${storeId}/colors`);
     } catch (error) {
       toast.error("Something went wrong.");
     } finally {
@@ -99,12 +92,12 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
     if (!initData) return;
     try {
       setIsLoading(true);
-      await axios.delete(`/api/stores/${storeId}/categories/${initData.id}`);
-      toast.success("Category deleted");
-      window.location.assign(`/${storeId}/categories`);
+      await axios.delete(`/api/stores/${storeId}/colors/${initData.id}`);
+      toast.success("Color deleted");
+      window.location.assign(`/${storeId}/colors`);
     } catch (error) {
       toast.error(
-        "Something went wrong. Make sure you remove all products with this category first."
+        "Something went wrong. Make sure you remove all products with this color first."
       );
     } finally {
       setIsLoading(false);
@@ -127,7 +120,7 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
         {initData ? (
           <Button
             variant="destructive"
-            size="icon"
+            color="icon"
             onClick={() => {
               setOpen(true);
             }}
@@ -152,7 +145,7 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Category name"
+                      placeholder="Color label"
                       {...field}
                     />
                   </FormControl>
@@ -162,28 +155,25 @@ export const CategoryForm = ({ initData, billboards }: Props) => {
             />
             <FormField
               control={form.control}
-              name="billboardId"
+              name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Billboard</FormLabel>
-
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a billboard" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {billboards.map((billboard) => (
-                        <SelectItem key={billboard.id} value={billboard.id}>
-                          {billboard.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FormLabel>Value</FormLabel>
+                  <FormControl>
+                    <div className="flex items-center gap-x-2">
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Color value"
+                        {...field}
+                      />
+                      <div
+                        className="w-10 h-10 rounded-full border shrink-0"
+                        style={{
+                          backgroundColor: field.value,
+                        }}
+                      ></div>
+                    </div>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
