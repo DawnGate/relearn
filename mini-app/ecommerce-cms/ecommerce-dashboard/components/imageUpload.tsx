@@ -18,8 +18,6 @@ interface Props {
 export const ImageUpload = ({ disabled, onChange, onRemove, value }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  const onUpload = (e: CldUploadEventCallback) => {};
-
   useEffect(() => {
     setIsMounted(true);
   }, []);

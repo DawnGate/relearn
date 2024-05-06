@@ -72,6 +72,10 @@ const GET = async (
   }
 ) => {
   try {
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
+    }
+
     const billboards = await prismaDb.billboard.findMany({
       where: {
         storeId: params.storeId,
