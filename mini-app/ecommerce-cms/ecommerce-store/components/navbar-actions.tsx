@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 
 export const NavbarAction = () => {
