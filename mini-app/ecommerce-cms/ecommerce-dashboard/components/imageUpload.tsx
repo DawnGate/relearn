@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImagePlusIcon, TrashIcon } from "lucide-react";
 
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
@@ -17,6 +17,12 @@ interface Props {
 
 export const ImageUpload = ({ disabled, onChange, onRemove, value }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
+
+  const ref = useRef<any>();
+
+  useEffect(() => {
+    ref.current = onChange;
+  });
 
   useEffect(() => {
     setIsMounted(true);
@@ -54,7 +60,7 @@ export const ImageUpload = ({ disabled, onChange, onRemove, value }: Props) => {
         onSuccess={(results) => {
           if (results.info) {
             const info = results.info as CloudinaryUploadWidgetInfo;
-            onChange(info.secure_url);
+            ref.current(info.secure_url);
           }
         }}
       >

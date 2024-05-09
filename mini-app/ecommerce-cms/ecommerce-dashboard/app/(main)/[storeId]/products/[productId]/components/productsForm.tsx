@@ -1,7 +1,7 @@
 "use client";
 
 import { z } from "zod";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useParams } from "next/navigation";
@@ -61,7 +61,7 @@ const formSchema = z.object({
       url: z.string(),
     })
     .array()
-    .length(1, {
+    .min(1, {
       message: "At least 1 image for product",
     }),
 });
@@ -181,31 +181,29 @@ export const ProductsForm = ({
           <FormField
             control={form.control}
             name="images"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    disabled={isLoading}
-                    value={field.value.map((item) => item.url)}
-                    onChange={(url) => {
-                      field.onChange([
-                        ...field.value,
-                        {
-                          url,
-                        },
-                      ]);
-                    }}
-                    onRemove={(url) => {
-                      field.onChange([
-                        ...field.value.filter((item) => item.url !== url),
-                      ]);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Background image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      disabled={isLoading}
+                      value={field.value.map((item) => item.url)}
+                      onChange={(url) => {
+                        // Get problem by cloudinary
+                        field.onChange([...field.value, { url }]);
+                      }}
+                      onRemove={(url) => {
+                        field.onChange([
+                          ...field.value.filter((item) => item.url !== url),
+                        ]);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
           />
           <div className="grid grid-cols-3 gap-8">
             <FormField
