@@ -7,15 +7,26 @@ import { ExpandIcon, ShoppingCartIcon } from "lucide-react";
 import { Currency } from "@/components/ui/currency";
 import { IconButton } from "@/components/ui/icon-button";
 
+import { useRouter } from "next/navigation";
+
 interface Props {
   item: Product;
 }
 
 export const ProductItem = ({ item }: Props) => {
+  const router = useRouter();
+
   const imageUrl = item.images[0].url;
 
+  const handleClick = () => {
+    router.push(`/product/${item.id}`);
+  };
+
   return (
-    <div className="bg-white group cursor-pointer border p-3 rounded-xl space-y-4">
+    <div
+      onClick={handleClick}
+      className="bg-white group cursor-pointer border p-3 rounded-xl space-y-4"
+    >
       {/* Image and Action */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image
