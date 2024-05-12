@@ -18,11 +18,11 @@ export const Summary = () => {
       `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
       {
         method: "POST",
-        body: JSON.stringify(cartItems.map((item) => item.id)),
+        body: JSON.stringify({ productIds: cartItems.map((item) => item.id) }),
       }
     ).then((res) => res.json());
 
-    window.location = response.data.url;
+    window.location = response.url;
   };
 
   useEffect(() => {
